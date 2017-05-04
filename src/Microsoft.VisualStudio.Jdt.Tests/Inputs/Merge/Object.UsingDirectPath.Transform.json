@@ -1,0 +1,18 @@
+﻿{
+  "@jdt.merge": {
+    "@jdt.path": "$.B.B2",
+    "@jdt.value": {
+      "B21": 1,
+      "B22": 2
+    }
+  },
+  "C": {
+    "@jdt.merge": {
+      "@jdt.path": "$.C1",
+      "@jdt.value": {
+        "C11": 1,
+        "C12": 2
+      }
+    }
+  }
+}

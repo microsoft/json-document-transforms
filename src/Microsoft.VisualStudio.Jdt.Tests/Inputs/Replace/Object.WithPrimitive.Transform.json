@@ -1,0 +1,15 @@
+﻿{
+  "A": {
+    "@jdt.replace": true
+  },
+  "B": {
+    "@jdt.replace": 20
+  },
+  "C": {
+    "C1": {
+      "@jdt.replace": 1,
+      "C11": "Skipped"
+    },
+    "C2": 2
+  }
+}

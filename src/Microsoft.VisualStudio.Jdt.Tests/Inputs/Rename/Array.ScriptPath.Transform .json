@@ -1,0 +1,6 @@
+﻿{
+  "@jdt.rename": {
+    "@jdt.path": "$.B[?(@.Rename == true)].ToChange",
+    "@jdt.value": "Changed"
+  }
+}

@@ -1,0 +1,20 @@
+﻿{
+  "A": 1,
+  "B": true,
+  "C": null,
+  "D": "4",
+  "E": [
+    {
+      "String": "string",
+      "Primitive": null
+    },
+    { "Object": { "Value": 10 } },
+    { "Array": [ { "Inception": true } ] },
+    {}
+  ],
+  "F": [
+    { "Repeat": true },
+    { "Repeat": true }
+  ],
+  "G": []
+}

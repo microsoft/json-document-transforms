@@ -1,0 +1,14 @@
+﻿{
+  "A": [
+    { "Ind": 1 },
+    { "Index": 2 },
+    { "Ind": 3 }
+  ],
+  "B": [
+    { "Rename": true, "ToChange": 1 },
+    { "Rename": false, "ToChange": 1 },
+    { "Rename": "WrongValue", "ToChange": 1 },
+    { "HasRename": false, "ToChange": 1 },
+    { "Rename": true, "ToChange": 1 }
+  ]
+}

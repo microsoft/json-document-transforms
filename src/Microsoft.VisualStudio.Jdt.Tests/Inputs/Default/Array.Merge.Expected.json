@@ -1,0 +1,31 @@
+﻿{
+  "A": [
+    { "Added": true }
+  ],
+  "B": [
+    {
+      "Name": "B1",
+      "Value": 1
+    },
+    {
+      "Name": "B2",
+      "Value": 2
+    },
+    {
+      "Name": "B2",
+      "Value": 3
+    }
+  ],
+  "C": [
+    {},
+    { "Empty": false },
+    { "Array": [ { "Inception": true } ] },
+    { "Empty": false }
+  ],
+  "D": {
+    "D1": [
+      { "Value": 1 },
+      { "Value": 0 }
+    ]
+  }
+}

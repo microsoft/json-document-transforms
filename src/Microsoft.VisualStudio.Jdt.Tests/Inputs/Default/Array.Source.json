@@ -1,0 +1,17 @@
+﻿{
+  "A": [],
+  "B": [
+    {
+      "Name": "B1",
+      "Value": 1
+    }
+  ],
+  "C": [
+    {},
+    { "Empty": false },
+    { "Array": [ { "Inception": true } ] }
+  ],
+  "D": {
+    "D1": [ { "Value": 1 } ]
+  }
+}

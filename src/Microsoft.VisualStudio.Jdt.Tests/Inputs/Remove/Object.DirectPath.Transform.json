@@ -1,0 +1,10 @@
+﻿{
+  "@jdt.remove": {
+    "@jdt.path": "$.B.B2"
+  },
+  "C": {
+    "@jdt.remove": {
+      "@jdt.path": "$.C1"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+﻿{
+  "A": [
+    { "Index": 1 },
+    { "Index": 2 },
+    { "Index": 3 }
+  ],
+  "B": [
+    { "Replace": true },
+    { "Replace": false },
+    { "Replace": "WrongValue" },
+    { "HasReplace": true },
+    { "Replace": true }
+  ]
+}

@@ -1,0 +1,21 @@
+﻿{
+  "A": [
+    { "Added": true }
+  ],
+  "B": [
+    {
+      "Name": "B2",
+      "Value": 2
+    },
+    {
+      "Name": "B2",
+      "Value": 3
+    }
+  ],
+  "C": [
+    { "Empty": false }
+  ],
+  "D": {
+    "D1": [ { "Value": 0 } ]
+  }
+}

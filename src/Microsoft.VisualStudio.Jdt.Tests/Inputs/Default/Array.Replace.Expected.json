@@ -1,0 +1,15 @@
+﻿{
+  "A": {
+    "Replaced": true
+  },
+  "B": [
+    {
+      "Name": "B1",
+      "Value": 1
+    }
+  ],
+  "C": "Replaced",
+  "D": {
+    "D1": null
+  }
+}

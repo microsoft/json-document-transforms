@@ -1,0 +1,14 @@
+﻿{
+  "A": {
+    "@jdt.remove": true
+  },
+  "B": {
+    "@jdt.remove": false
+  },
+  "C": {
+    "C1": {
+      "@jdt.remove": true,
+      "C12": 3
+    }
+  }
+}

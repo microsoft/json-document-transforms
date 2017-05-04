@@ -1,0 +1,13 @@
+﻿{
+  "A": [
+    { "Index": 1 },
+    { "Index": 3 }
+  ],
+  "B": [
+    { "Remove": true },
+    { "Remove": false },
+    { "Remove": "WrongValue" },
+    { "HasRemove": false },
+    { "Remove": true }
+  ]
+}

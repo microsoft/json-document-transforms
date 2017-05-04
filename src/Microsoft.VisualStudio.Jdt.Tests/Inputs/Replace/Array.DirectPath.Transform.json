@@ -1,0 +1,15 @@
+﻿{
+  "@jdt.replace": [
+    {
+      "@jdt.path": "$.A[0]",
+      "@jdt.value": 1
+    },
+    {
+      "@jdt.path": "$.A[2]",
+      "@jdt.value": {
+        "StringIndex": "03",
+        "Replaced" :  true
+      }
+    }
+  ]
+}

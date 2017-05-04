@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.VisualStudio.Jdt", "Microsoft.VisualStudio.Jdt\Microsoft.VisualStudio.Jdt.csproj", "{E4517B62-6E49-47A9-93A3-889B2E0A92B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.VisualStudio.Jdt.Tests", "Microsoft.VisualStudio.Jdt.Tests\Microsoft.VisualStudio.Jdt.Tests.csproj", "{A17BD5AD-EB38-4D71-90CE-25DAE7BFAAC0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{386BAD62-57B8-4AEB-AEE5-D122A8330656}"
+	ProjectSection(SolutionItems) = preProject
+		stylecop.json = stylecop.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E4517B62-6E49-47A9-93A3-889B2E0A92B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4517B62-6E49-47A9-93A3-889B2E0A92B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4517B62-6E49-47A9-93A3-889B2E0A92B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4517B62-6E49-47A9-93A3-889B2E0A92B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A17BD5AD-EB38-4D71-90CE-25DAE7BFAAC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A17BD5AD-EB38-4D71-90CE-25DAE7BFAAC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A17BD5AD-EB38-4D71-90CE-25DAE7BFAAC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A17BD5AD-EB38-4D71-90CE-25DAE7BFAAC0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
