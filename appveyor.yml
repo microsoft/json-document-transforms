@@ -11,23 +11,21 @@
 # version format
 version: 1.0.{build}
 
+skip_tags: true
+branches:
+  only:
+  - master
+
 #---------------------------------#
 #    environment configuration    #
 #---------------------------------#
 # Build worker image (VM template)
 image: Visual Studio 2017
 
-skip_tags: true
-branches:
-  only:
-  - master
-
 environment:
-  DeployExtension: false
-  Package: true
-
-cache:
-- packages -> **\packages.config
+  VisualStudioVersion: 15.0
+  TreatWarningsAsErrors: true
+  CodeAnalysisTreatWarningsAsErrors: true
 
 configuration: Release
 
@@ -55,5 +53,5 @@ test:
 #---------------------------------#
 
 artifacts:
-- path: 'bin\**\Microsoft.VisualStudio.Jdt*.nupkg'
+- path: bin\**\*.nupkg
   name: Nuget Package
