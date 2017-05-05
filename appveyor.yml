@@ -44,9 +44,16 @@ build:
 #       test configuration        #
 #---------------------------------#
 
+# test net452
 test:
   assemblies:
-  - '**\*tests.dll'
+  - '**\net452\*test*.dll'
+
+# test the netcoreapp1.0 version as well
+after_test:
+  dotnet test src\Microsoft.VisualStudio.Jdt.Tests\Microsoft.VisualStudio.Jdt.Tests.csproj
+  --no-build
+  -f netcoreapp1.0
 
 #---------------------------------#
 #     artifact configuration      #
