@@ -1,7 +1,7 @@
-JSON Document Transfomation
+JSON Document Transfoms
 ============
 
-JSON Document Transformation (JDT) library. Perform transformations on JSON files using another JSON as the specification. This is the C# implementation.
+JSON Document Transforms (JDT) library. Perform transformations on JSON files using another JSON as the specification. This is the C# implementation.
 
 For more information on how JDT works, see the [JDT Wiki](https://github.com/Microsoft/json-document-transforms/wiki)
 
