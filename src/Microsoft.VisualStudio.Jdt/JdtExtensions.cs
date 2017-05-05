@@ -36,11 +36,14 @@ namespace Microsoft.VisualStudio.Jdt
         internal static bool IsCriticalException(this Exception ex)
         {
             return ex is NullReferenceException
-                    || ex is StackOverflowException
-                    || ex is OutOfMemoryException
-                    || ex is System.Threading.ThreadAbortException
-                    || ex is IndexOutOfRangeException
-                    || ex is AccessViolationException;
+                || ex is OutOfMemoryException
+                || ex is IndexOutOfRangeException
+#if NET45
+                || ex is StackOverflowException
+                || ex is AccessViolationException
+                || ex is System.Threading.ThreadAbortException
+#endif
+                ;
         }
     }
 }
