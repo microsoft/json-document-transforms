@@ -1,7 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <OutputTypeEx>library</OutputTypeEx>
     <TargetFramework>net46</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+     <Authors>Microsoft</Authors>
+     <Owners>Microsoft, VisualStudioExtensibility</Owners>
+     <Description>Transform json files using a json transformation schema</Description>
+     <Copyright>Copyright © Microsoft Corporation. All rights reserved.</Copyright>
+     <PackageTags>json transformation transforms file-transform jdt</PackageTags>
+     <PackageIconUrl>https://aka.ms/VsExtensibilityIcon</PackageIconUrl>
+     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+     <PackageLicenseUrl>https://raw.githubusercontent.com/Microsoft/json-document-transforms/master/LICENSE</PackageLicenseUrl>
+     <PackageProjectUrl>https://github.com/Microsoft/json-document-transforms</PackageProjectUrl>
+     <RepositoryUrl>https://github.com/Microsoft/json-document-transforms</RepositoryUrl>
+     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
