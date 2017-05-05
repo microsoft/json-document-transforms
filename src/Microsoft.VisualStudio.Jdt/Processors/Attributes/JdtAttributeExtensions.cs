@@ -7,6 +7,7 @@ namespace Microsoft.VisualStudio.Jdt
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
+    using System.Reflection;
 
     /// <summary>
     /// Implements extensions for <see cref="JdtAttributes"/>
@@ -21,8 +22,9 @@ namespace Microsoft.VisualStudio.Jdt
         internal static string GetDescription(this JdtAttributes attribute)
         {
             var type = attribute.GetType();
+            var typeInfo = type.GetTypeInfo();
             var name = Enum.GetName(type, attribute);
-            var description = type.GetField(name)
+            var description = typeInfo.GetField(name)
                 .GetCustomAttributes(false)
                 .OfType<DescriptionAttribute>()
                 .SingleOrDefault();
