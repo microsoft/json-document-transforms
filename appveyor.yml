@@ -1,0 +1,59 @@
+# Notes:
+#   - Minimal appveyor.yml file is an empty file. All sections are optional.
+#   - Indent each level of configuration with 2 spaces. Do not use tabs!
+#   - All section names are case-sensitive.
+#   - Section names should be unique on each level.
+
+#---------------------------------#
+#      general configuration      #
+#---------------------------------#
+
+# version format
+version: 1.0.{build}
+
+#---------------------------------#
+#    environment configuration    #
+#---------------------------------#
+# Build worker image (VM template)
+image: Visual Studio 2017
+
+skip_tags: true
+branches:
+  only:
+  - master
+
+environment:
+  DeployExtension: false
+  Package: true
+
+cache:
+- packages -> **\packages.config
+
+configuration: Release
+
+#---------------------------------#
+#       build configuration       #
+#---------------------------------#
+
+before_build:
+  nuget restore src
+
+build:
+  project: src\jdt.sln  # path to Visual Studio solution or project
+  verbosity: normal         # MSBuild verbosity level
+
+#---------------------------------#
+#       test configuration        #
+#---------------------------------#
+
+test:
+  assemblies:
+  - '**\*tests.dll'
+
+#---------------------------------#
+#     artifact configuration      #
+#---------------------------------#
+
+artifacts:
+- path: 'bin\**\Microsoft.VisualStudio.Jdt*.nupkg'
+  name: Nuget Package
