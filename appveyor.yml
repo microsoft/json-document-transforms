@@ -36,11 +36,11 @@ configuration: Release
 #---------------------------------#
 
 before_build:
-  nuget restore src
+  msbuild src\jdt.sln /nologo /m /v:quiet /t:restore
 
 build:
   project: src\jdt.sln  # path to Visual Studio solution or project
-  verbosity: normal         # MSBuild verbosity level
+  verbosity: normal     # MSBuild verbosity level
 
 #---------------------------------#
 #       test configuration        #
