@@ -4,111 +4,123 @@
 namespace Microsoft.VisualStudio.Jdt.Tests
 {
     using System;
-    using System.Text;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Mock logger to test <see cref="JsonTransformation"/>
     /// </summary>
     public class JsonTransformationTestLogger : IJsonTransformationLogger
     {
-        private readonly StringBuilder errorLog = new StringBuilder();
-
-        private readonly StringBuilder warningLog = new StringBuilder();
-
-        private readonly StringBuilder messageLog = new StringBuilder();
+        /// <summary>
+        /// Gets the error log
+        /// </summary>
+        public List<TestLogEntry> ErrorLog { get; } = new List<TestLogEntry>();
 
         /// <summary>
-        /// Gets the text from the error log
+        /// Gets the warning log
         /// </summary>
-        public string ErrorLogText
-        {
-            get
-            {
-                return this.errorLog.ToString();
-            }
-        }
+        public List<TestLogEntry> WarningLog { get; } = new List<TestLogEntry>();
 
         /// <summary>
-        /// Gets the text from the warning log
+        /// Gets the message log
         /// </summary>
-        public string WarningLogText
-        {
-            get
-            {
-                return this.warningLog.ToString();
-            }
-        }
-
-        /// <summary>
-        /// Gets the text from the message log
-        /// </summary>
-        public string MessageLogText
-        {
-            get
-            {
-                return this.messageLog.ToString();
-            }
-        }
+        public List<TestLogEntry> MessageLog { get; } = new List<TestLogEntry>();
 
         /// <inheritdoc/>
         public void LogError(string message)
         {
-            this.errorLog.AppendLine(message);
+            this.ErrorLog.Add(new TestLogEntry(message, null, 0, 0, false));
         }
 
         /// <inheritdoc/>
         public void LogError(string message, string fileName, int lineNumber, int linePosition)
         {
-            this.errorLog.AppendLine(this.BuildLine(message, fileName, lineNumber, linePosition));
+            this.ErrorLog.Add(new TestLogEntry(message, fileName, lineNumber, linePosition, false));
         }
 
         /// <inheritdoc/>
         public void LogErrorFromException(Exception ex)
         {
-            this.errorLog.AppendLine($"Exception: {ex.Message}");
+            this.ErrorLog.Add(new TestLogEntry(ex.Message, null, 0, 0, true));
         }
 
         /// <inheritdoc/>
         public void LogErrorFromException(Exception ex, string fileName, int lineNumber, int linePosition)
         {
-            this.errorLog.AppendLine(this.BuildLine($"Exception: {ex.Message}", fileName, lineNumber, linePosition));
+            this.ErrorLog.Add(new TestLogEntry(ex.Message, fileName, lineNumber, linePosition, true));
         }
 
         /// <inheritdoc/>
         public void LogMessage(string message)
         {
-            this.messageLog.AppendLine(message);
+            this.MessageLog.Add(new TestLogEntry(message, null, 0, 0, false));
         }
 
         /// <inheritdoc/>
         public void LogWarning(string message)
         {
-            this.warningLog.AppendLine(message);
+            this.WarningLog.Add(new TestLogEntry(message, null, 0, 0, false));
         }
 
         /// <inheritdoc/>
         public void LogWarning(string message, string fileName)
         {
-            this.warningLog.AppendLine($"{message} {fileName}");
+            this.WarningLog.Add(new TestLogEntry(message, fileName, 0, 0, false));
         }
 
         /// <inheritdoc/>
         public void LogWarning(string message, string fileName, int lineNumber, int linePosition)
         {
-            this.warningLog.AppendLine(this.BuildLine(message, fileName, lineNumber, linePosition));
+            this.WarningLog.Add(new TestLogEntry(message, fileName, lineNumber, linePosition, false));
         }
 
-        private string BuildLine(string message, string fileName, int lineNumber, int linePosition)
+        /// <summary>
+        /// An test entry for the logger.
+        /// Corresponds to an error, warning or message
+        /// </summary>
+        public struct TestLogEntry
         {
-            string line = message;
-            if (fileName != null)
+            /// <summary>
+            /// The log message
+            /// </summary>
+            public string Message;
+
+            /// <summary>
+            /// The file that caused the entry
+            /// </summary>
+            public string FileName;
+
+            /// <summary>
+            /// The line in the file
+            /// </summary>
+            public int LineNumber;
+
+            /// <summary>
+            /// The position in the line
+            /// </summary>
+            public int LinePosition;
+
+            /// <summary>
+            /// Whether the entry was caused from an exception
+            /// </summary>
+            public bool FromException;
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="TestLogEntry"/> struct.
+            /// </summary>
+            /// <param name="message">The entry message</param>
+            /// <param name="file">The file that caused the entry</param>
+            /// <param name="lineNumber">The line in the file</param>
+            /// <param name="linePosition">The position in the line</param>
+            /// <param name="fromException">Whether the entry was caused by an exception</param>
+            public TestLogEntry(string message, string file, int lineNumber, int linePosition, bool fromException)
             {
-                line += " " + fileName;
+                this.Message = message;
+                this.FileName = file;
+                this.LineNumber = lineNumber;
+                this.LinePosition = linePosition;
+                this.FromException = fromException;
             }
-
-            line += $" {lineNumber} {linePosition}";
-
-            return line;
         }
     }
 }

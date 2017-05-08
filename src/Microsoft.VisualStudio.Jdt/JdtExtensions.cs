@@ -45,5 +45,23 @@ namespace Microsoft.VisualStudio.Jdt
 #endif
                 ;
         }
+
+        /// <summary>
+        /// Clones a <see cref="JObject"/> preserving the line information
+        /// </summary>
+        /// <param name="objectToClone">The object to clone</param>
+        /// <returns>A clone of the object with its line info</returns>
+        internal static JObject CloneWithLineInfo(this JObject objectToClone)
+        {
+            var loadSettings = new JsonLoadSettings()
+            {
+                LineInfoHandling = LineInfoHandling.Load
+            };
+
+            using (var objectReader = objectToClone.CreateReader())
+            {
+                return JObject.Load(objectReader, loadSettings);
+            }
+        }
     }
 }
