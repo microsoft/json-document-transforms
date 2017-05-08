@@ -41,6 +41,8 @@ namespace Microsoft.VisualStudio.Jdt.Tests
 
             Assert.Empty(this.logger.MessageLog);
             Assert.Empty(this.logger.WarningLog);
+
+            // The error should be where at the location of the invalid verb
             LogHasSingleEntry(this.logger.ErrorLog, ErrorLocation.Transform.ToString(), 2, 56, true);
         }
 
@@ -58,6 +60,8 @@ namespace Microsoft.VisualStudio.Jdt.Tests
 
             Assert.Empty(this.logger.MessageLog);
             Assert.Empty(this.logger.WarningLog);
+
+            // The error location should be at the location of the invalid value
             LogHasSingleEntry(this.logger.ErrorLog, ErrorLocation.Transform.ToString(), 2, 58, true);
         }
 
@@ -77,6 +81,8 @@ namespace Microsoft.VisualStudio.Jdt.Tests
 
             Assert.Empty(this.logger.MessageLog);
             Assert.Empty(this.logger.WarningLog);
+
+            // The error location should be at the position of the invalid attribute
             LogHasSingleEntry(this.logger.ErrorLog, ErrorLocation.Transform.ToString(), 3, 58, true);
         }
 
@@ -96,6 +102,8 @@ namespace Microsoft.VisualStudio.Jdt.Tests
 
             Assert.Empty(this.logger.MessageLog);
             Assert.Empty(this.logger.WarningLog);
+
+            // The error location should be at the beginning of the object with the missing attribute
             LogHasSingleEntry(this.logger.ErrorLog, ErrorLocation.Transform.ToString(), 2, 57, true);
         }
 
@@ -117,6 +125,8 @@ namespace Microsoft.VisualStudio.Jdt.Tests
 
             Assert.Empty(this.logger.MessageLog);
             Assert.Empty(this.logger.WarningLog);
+
+            // The error location should be at the beginning of the object with the mixed attribute
             LogHasSingleEntry(this.logger.ErrorLog, ErrorLocation.Transform.ToString(), 2, 57, true);
         }
 
@@ -136,6 +146,8 @@ namespace Microsoft.VisualStudio.Jdt.Tests
 
             Assert.Empty(this.logger.MessageLog);
             Assert.Empty(this.logger.WarningLog);
+
+            // The error location should be at the position of the invalid value
             LogHasSingleEntry(this.logger.ErrorLog, ErrorLocation.Transform.ToString(), 3, 61, true);
         }
 
@@ -155,6 +167,8 @@ namespace Microsoft.VisualStudio.Jdt.Tests
 
             Assert.Empty(this.logger.MessageLog);
             Assert.Empty(this.logger.ErrorLog);
+
+            // The warning location should be at the position of the path value that yielded no results
             LogHasSingleEntry(this.logger.WarningLog, ErrorLocation.Transform.ToString(), 3, 59, false);
         }
 
@@ -172,6 +186,8 @@ namespace Microsoft.VisualStudio.Jdt.Tests
 
             Assert.Empty(this.logger.MessageLog);
             Assert.Empty(this.logger.WarningLog);
+
+            // The error location should be at the position of the remove value
             LogHasSingleEntry(this.logger.ErrorLog, ErrorLocation.Transform.ToString(), 2, 60, true);
         }
 
@@ -191,6 +207,8 @@ namespace Microsoft.VisualStudio.Jdt.Tests
 
             Assert.Empty(this.logger.MessageLog);
             Assert.Empty(this.logger.WarningLog);
+
+            // The error location should be at the position of the rename property
             LogHasSingleEntry(this.logger.ErrorLog, ErrorLocation.Transform.ToString(), 3, 47, true);
         }
 
@@ -210,6 +228,8 @@ namespace Microsoft.VisualStudio.Jdt.Tests
 
             Assert.Empty(this.logger.MessageLog);
             Assert.Empty(this.logger.ErrorLog);
+
+            // The position of the warning should be a the beginning of the rename property
             LogHasSingleEntry(this.logger.WarningLog, ErrorLocation.Transform.ToString(), 3, 47, false);
         }
 
@@ -227,6 +247,8 @@ namespace Microsoft.VisualStudio.Jdt.Tests
 
             Assert.Empty(this.logger.MessageLog);
             Assert.Empty(this.logger.WarningLog);
+
+            // The position of the error should be at the value of replace that caused it
             LogHasSingleEntry(this.logger.ErrorLog, ErrorLocation.Transform.ToString(), 2, 59, true);
         }
 
