@@ -57,6 +57,12 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <inheritdoc/>
+        public void LogMessage(string message, string fileName, int lineNumber, int linePosition)
+        {
+            this.MessageLog.Add(new TestLogEntry(message, fileName, lineNumber, linePosition, false));
+        }
+
+        /// <inheritdoc/>
         public void LogWarning(string message)
         {
             this.WarningLog.Add(new TestLogEntry(message, null, 0, 0, false));
