@@ -17,15 +17,6 @@ namespace Microsoft.VisualStudio.Jdt
         void LogMessage(string message);
 
         /// <summary>
-        /// Logs a message
-        /// </summary>
-        /// <param name="message">The message</param>
-        /// <param name="fileName">The full path to the file that caused the message. Can be null</param>
-        /// <param name="lineNumber">The line that caused the message</param>
-        /// <param name="linePosition">The position in the line that caused the message</param>
-        void LogMessage(string message, string fileName, int lineNumber, int linePosition);
-
-        /// <summary>
         /// Logs a warning
         /// </summary>
         /// <param name="message">The warning message</param>
