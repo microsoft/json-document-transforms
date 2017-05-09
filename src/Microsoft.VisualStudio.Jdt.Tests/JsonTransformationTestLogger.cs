@@ -29,55 +29,106 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         /// <inheritdoc/>
         public void LogError(string message)
         {
-            this.ErrorLog.Add(new TestLogEntry(message, null, 0, 0, false));
+            this.ErrorLog.Add(new TestLogEntry()
+            {
+                Message = message,
+                FromException = false
+            });
         }
 
         /// <inheritdoc/>
         public void LogError(string message, string fileName, int lineNumber, int linePosition)
         {
-            this.ErrorLog.Add(new TestLogEntry(message, fileName, lineNumber, linePosition, false));
+            this.ErrorLog.Add(new TestLogEntry()
+            {
+                Message = message,
+                FileName = fileName,
+                LineNumber = lineNumber,
+                LinePosition = linePosition,
+                FromException = false
+            });
         }
 
         /// <inheritdoc/>
         public void LogErrorFromException(Exception ex)
         {
-            this.ErrorLog.Add(new TestLogEntry(ex.Message, null, 0, 0, true));
+            this.ErrorLog.Add(new TestLogEntry()
+            {
+                Message = ex.Message,
+                FromException = false
+            });
         }
 
         /// <inheritdoc/>
         public void LogErrorFromException(Exception ex, string fileName, int lineNumber, int linePosition)
         {
-            this.ErrorLog.Add(new TestLogEntry(ex.Message, fileName, lineNumber, linePosition, true));
+            this.ErrorLog.Add(new TestLogEntry()
+            {
+                Message = ex.Message,
+                FileName = fileName,
+                LineNumber = lineNumber,
+                LinePosition = linePosition,
+                FromException = true
+            });
         }
 
         /// <inheritdoc/>
         public void LogMessage(string message)
         {
-            this.MessageLog.Add(new TestLogEntry(message, null, 0, 0, false));
+            this.MessageLog.Add(new TestLogEntry()
+            {
+                Message = message,
+                FromException = false
+            });
         }
 
         /// <inheritdoc/>
         public void LogMessage(string message, string fileName, int lineNumber, int linePosition)
         {
-            this.MessageLog.Add(new TestLogEntry(message, fileName, lineNumber, linePosition, false));
+            this.MessageLog.Add(new TestLogEntry()
+            {
+                Message = message,
+                FileName = fileName,
+                LineNumber = lineNumber,
+                LinePosition = linePosition,
+                FromException = false
+            });
         }
 
         /// <inheritdoc/>
         public void LogWarning(string message)
         {
-            this.WarningLog.Add(new TestLogEntry(message, null, 0, 0, false));
+            this.WarningLog.Add(new TestLogEntry()
+            {
+                Message = message,
+                FromException = false
+            });
         }
 
         /// <inheritdoc/>
         public void LogWarning(string message, string fileName)
         {
-            this.WarningLog.Add(new TestLogEntry(message, fileName, 0, 0, false));
+            this.WarningLog.Add(new TestLogEntry()
+            {
+                Message = message,
+                FileName = fileName,
+                LineNumber = 0,
+                LinePosition = 0,
+                FromException = false
+            });
         }
 
         /// <inheritdoc/>
         public void LogWarning(string message, string fileName, int lineNumber, int linePosition)
         {
-            this.WarningLog.Add(new TestLogEntry(message, fileName, lineNumber, linePosition, false));
+            this.WarningLog.Add(new TestLogEntry()
+            {
+                Message = message,
+                FileName = fileName,
+                LineNumber = lineNumber,
+                LinePosition = linePosition,
+                FromException = false
+            });
         }
 
         /// <summary>
@@ -87,46 +138,29 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         public struct TestLogEntry
         {
             /// <summary>
-            /// The log message
+            /// Gets or sets the log message
             /// </summary>
-            public string Message;
+            public string Message { get; set; }
 
             /// <summary>
-            /// The file that caused the entry
+            /// Gets or sets the file that caused the entry
             /// </summary>
-            public string FileName;
+            public string FileName { get; set; }
 
             /// <summary>
-            /// The line in the file
+            /// Gets or sets the line in the file
             /// </summary>
-            public int LineNumber;
+            public int LineNumber { get; set; }
 
             /// <summary>
-            /// The position in the line
+            /// Gets or sets the position in the line
             /// </summary>
-            public int LinePosition;
+            public int LinePosition { get; set; }
 
             /// <summary>
-            /// Whether the entry was caused from an exception
+            /// Gets or sets a value indicating whether whether the entry was caused from an exception
             /// </summary>
-            public bool FromException;
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="TestLogEntry"/> struct.
-            /// </summary>
-            /// <param name="message">The entry message</param>
-            /// <param name="file">The file that caused the entry</param>
-            /// <param name="lineNumber">The line in the file</param>
-            /// <param name="linePosition">The position in the line</param>
-            /// <param name="fromException">Whether the entry was caused by an exception</param>
-            public TestLogEntry(string message, string file, int lineNumber, int linePosition, bool fromException)
-            {
-                this.Message = message;
-                this.FileName = file;
-                this.LineNumber = lineNumber;
-                this.LinePosition = linePosition;
-                this.FromException = fromException;
-            }
+            public bool FromException { get; set; }
         }
     }
 }
