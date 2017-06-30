@@ -3,6 +3,10 @@
 
 namespace Microsoft.VisualStudio.Jdt
 {
+    using System;
+    using System.Reflection;
+    using Newtonsoft.Json.Linq;
+
     /// <summary>
     /// Utilities class for handling JSON files
     /// </summary>
@@ -12,6 +16,8 @@ namespace Microsoft.VisualStudio.Jdt
         /// The prefix for all JDT syntax
         /// </summary>
         internal const string JdtSyntaxPrefix = "@jdt.";
+
+        private static LineInfoHandling? lineInfoHandling = null;
 
         /// <summary>
         /// Wheter the given key corresponds to a JDT verb
@@ -35,6 +41,33 @@ namespace Microsoft.VisualStudio.Jdt
             // If the key does not start with the correct prefix, it is not a JDT verb
             // If it is a JDT verb, remove the prefix
             return IsJdtSyntax(key) ? key.Substring(JdtSyntaxPrefix.Length) : null;
+        }
+
+        /// <summary>
+        /// Gets the <see cref="LineInfoHandling"/> depending on the Newtonsoft version
+        /// This is due to a bug in previous versions of JSON.Net that loaded line info on ignore and vice-versa
+        /// See https://github.com/JamesNK/Newtonsoft.Json/pull/1250
+        /// </summary>
+        /// <returns>The correct line info handling</returns>
+        internal static LineInfoHandling GetLineInfoHandling()
+        {
+            if (lineInfoHandling == null)
+            {
+                Version newtonsoftVersion = typeof(JObject).GetTypeInfo().Assembly.GetName().Version;
+
+                if (newtonsoftVersion >= new Version("10.0.2"))
+                {
+                    return LineInfoHandling.Load;
+                }
+                else
+                {
+                    return LineInfoHandling.Ignore;
+                }
+            }
+            else
+            {
+                return lineInfoHandling.Value;
+            }
         }
     }
 }

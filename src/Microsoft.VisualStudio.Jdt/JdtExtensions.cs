@@ -55,7 +55,7 @@ namespace Microsoft.VisualStudio.Jdt
         {
             var loadSettings = new JsonLoadSettings()
             {
-                LineInfoHandling = LineInfoHandling.Load
+                LineInfoHandling = JdtUtilities.GetLineInfoHandling()
             };
 
             using (var objectReader = objectToClone.CreateReader())
