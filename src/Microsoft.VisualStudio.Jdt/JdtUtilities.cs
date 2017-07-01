@@ -57,17 +57,15 @@ namespace Microsoft.VisualStudio.Jdt
 
                 if (newtonsoftVersion >= new Version("10.0.2"))
                 {
-                    return LineInfoHandling.Load;
+                    lineInfoHandling = LineInfoHandling.Load;
                 }
                 else
                 {
-                    return LineInfoHandling.Ignore;
+                    lineInfoHandling = LineInfoHandling.Ignore;
                 }
             }
-            else
-            {
-                return lineInfoHandling.Value;
-            }
+
+            return lineInfoHandling.Value;
         }
     }
 }
