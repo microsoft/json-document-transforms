@@ -5,9 +5,7 @@ namespace Microsoft.VisualStudio.Jdt
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.Linq;
-    using System.Reflection;
 
     /// <summary>
     /// Implements extensions for <see cref="JdtAttributes"/>
@@ -15,36 +13,18 @@ namespace Microsoft.VisualStudio.Jdt
     internal static class JdtAttributeExtensions
     {
         /// <summary>
-        /// Gets the description (name) of the attribute
-        /// </summary>
-        /// <param name="attribute">The attribute</param>
-        /// <returns>The name of the attribute</returns>
-        internal static string GetDescription(this JdtAttributes attribute)
-        {
-            var type = attribute.GetType();
-            var typeInfo = type.GetTypeInfo();
-            var name = Enum.GetName(type, attribute);
-            var description = typeInfo.GetField(name)
-                .GetCustomAttributes(false)
-                .OfType<DescriptionAttribute>()
-                .SingleOrDefault();
-
-            if (description == null)
-            {
-                throw new NotImplementedException(attribute.ToString() + " does not have a corresponding name");
-            }
-
-            return description.Description;
-        }
-
-        /// <summary>
         /// Get the full name of an attribute, with the JDT prefix
         /// </summary>
         /// <param name="attribute">The attribute</param>
         /// <returns>A string with the full name of the requested attribute</returns>
         internal static string FullName(this JdtAttributes attribute)
         {
-            return JdtUtilities.JdtSyntaxPrefix + attribute.GetDescription();
+            if (attribute == JdtAttributes.None)
+            {
+                return JdtUtilities.JdtSyntaxPrefix;
+            }
+
+            return JdtUtilities.JdtSyntaxPrefix + Enum.GetName(typeof(JdtAttributes), attribute).ToLower();
         }
 
         /// <summary>

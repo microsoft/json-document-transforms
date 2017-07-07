@@ -162,7 +162,7 @@ namespace Microsoft.VisualStudio.Jdt
             this.loadSettings = new JsonLoadSettings()
             {
                 CommentHandling = CommentHandling.Ignore,
-                LineInfoHandling = LineInfoHandling.Load
+                LineInfoHandling = JdtUtilities.GetLineInfoHandling()
             };
 
             using (StreamReader transformStreamReader = new StreamReader(transformStream))

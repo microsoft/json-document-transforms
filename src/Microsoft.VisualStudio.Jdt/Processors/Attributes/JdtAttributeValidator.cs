@@ -5,7 +5,6 @@ namespace Microsoft.VisualStudio.Jdt
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.Linq;
     using Newtonsoft.Json.Linq;
 
@@ -17,19 +16,16 @@ namespace Microsoft.VisualStudio.Jdt
         /// <summary>
         /// Represents an non existant attribute
         /// </summary>
-        [Description(null)]
         None = 0,
 
         /// <summary>
         /// The JDT path attribute
         /// </summary>
-        [Description("path")]
         Path,
 
         /// <summary>
         /// The JDT path attribute
         /// </summary>
-        [Description("value")]
         Value,
     }
 
