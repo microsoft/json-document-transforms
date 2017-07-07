@@ -4,6 +4,7 @@
 namespace Microsoft.VisualStudio.Jdt
 {
     using System;
+    using System.Diagnostics;
     using System.Reflection;
     using Newtonsoft.Json.Linq;
 
@@ -17,6 +18,10 @@ namespace Microsoft.VisualStudio.Jdt
         /// </summary>
         internal const string JdtSyntaxPrefix = "@jdt.";
 
+        /// <summary>
+        /// The cached line info handling to use, based on Newtonsoft.Json version
+        /// https://github.com/JamesNK/Newtonsoft.Json/issues/1249
+        /// </summary>
         private static LineInfoHandling? lineInfoHandling = null;
 
         /// <summary>
@@ -53,15 +58,28 @@ namespace Microsoft.VisualStudio.Jdt
         {
             if (lineInfoHandling == null)
             {
-                Version newtonsoftVersion = typeof(JObject).GetTypeInfo().Assembly.GetName().Version;
+                try
+                {
+                    string newtonsoftLocation = typeof(JObject).GetTypeInfo().Assembly.Location;
+                    FileVersionInfo fileVersion = FileVersionInfo.GetVersionInfo(newtonsoftLocation);
 
-                if (newtonsoftVersion >= new Version("10.0.2"))
-                {
-                    lineInfoHandling = LineInfoHandling.Load;
+                    // The version the line ending bug was fixed in. We want to target a lower
+                    // version of Newtonsoft to give consumers more flexibility in what version
+                    // they consume theirselves. However, we still want line endings to work in
+                    // both new and old versions.
+                    if (new Version(fileVersion.ProductVersion) < new Version("10.0.2"))
+                    {
+                        lineInfoHandling = LineInfoHandling.Ignore;
+                    }
+                    else
+                    {
+                        lineInfoHandling = LineInfoHandling.Load;
+                    }
                 }
-                else
+                catch (Exception e) when (!e.IsCriticalException())
                 {
-                    lineInfoHandling = LineInfoHandling.Ignore;
+                    // we will default to the "correct" value in the instance of any issues.
+                    lineInfoHandling = LineInfoHandling.Load;
                 }
             }
 
