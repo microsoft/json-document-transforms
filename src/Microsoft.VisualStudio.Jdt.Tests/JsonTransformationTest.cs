@@ -275,6 +275,31 @@ namespace Microsoft.VisualStudio.Jdt.Tests
             }
         }
 
+        /// <summary>
+        /// Tests that a transformation succeeds even if the source and transform files are read-only.
+        /// </summary>
+        [Fact]
+        public void ReadOnly()
+        {
+            const string TransformSourceString = @"{
+                                                        '@jdt.rename' : {
+                                                            'A' : 'Astar'
+                                                        }
+                                                    }";
+
+            // create temporary files to use for the source and transform
+            using (ReadOnlyTempFile tempSourceFilePath = new ReadOnlyTempFile(SimpleSourceString))
+            using (ReadOnlyTempFile tempTransformFilePath = new ReadOnlyTempFile(TransformSourceString))
+            {
+                // apply transform
+                JsonTransformation transformation = new JsonTransformation(tempSourceFilePath.FilePath, this.logger);
+                using (Stream result = transformation.Apply(tempTransformFilePath.FilePath))
+                {
+                    // succeess
+                }
+            }
+        }
+
         private static void LogHasSingleEntry(List<JsonTransformationTestLogger.TestLogEntry> log, string fileName, int lineNumber, int linePosition, bool fromException)
         {
             Assert.Single(log);
