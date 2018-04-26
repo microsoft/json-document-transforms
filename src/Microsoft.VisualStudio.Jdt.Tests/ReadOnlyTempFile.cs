@@ -40,13 +40,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         public void Dispose()
         {
             // delete file
-            if (this.FilePath == null)
-            {
-                // nothing to delete
-                return;
-            }
-
-            if (!File.Exists(this.FilePath))
+            if ((this.FilePath == null) || !File.Exists(this.FilePath))
             {
                 // nothing to delete
                 return;

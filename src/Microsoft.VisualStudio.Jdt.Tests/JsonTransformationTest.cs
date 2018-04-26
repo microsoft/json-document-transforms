@@ -6,6 +6,8 @@ namespace Microsoft.VisualStudio.Jdt.Tests
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
     using Xunit;
 
     /// <summary>
@@ -294,8 +296,18 @@ namespace Microsoft.VisualStudio.Jdt.Tests
                 // apply transform
                 JsonTransformation transformation = new JsonTransformation(tempSourceFilePath.FilePath, this.logger);
                 using (Stream result = transformation.Apply(tempTransformFilePath.FilePath))
+                using (StreamReader streamReader = new StreamReader(result))
+                using (JsonTextReader jsonReader = new JsonTextReader(streamReader))
                 {
-                    // succeess
+                    var transformed = JObject.Load(jsonReader);
+                    var expected = JObject.Parse(@"{
+                                                        '@jdt.rename': {
+                                                            'A': 'Astar'
+                                                        },
+                                                    'A': 1
+                                                    }");
+
+                    Assert.True(JObject.DeepEquals(expected, transformed));
                 }
             }
         }
