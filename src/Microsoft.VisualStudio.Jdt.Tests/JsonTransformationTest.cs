@@ -3,6 +3,7 @@
 
 namespace Microsoft.VisualStudio.Jdt.Tests
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -275,6 +276,29 @@ namespace Microsoft.VisualStudio.Jdt.Tests
             }
         }
 
+        /// <summary>
+        /// Tests that a transformation succeeds even if the source and transform files are read-only.
+        /// </summary>
+        [Fact]
+        public void ReadOnly()
+        {
+            const string TransformSourceString = @"{
+                                                        '@jdt.rename' : {
+                                                            'A' : 'Astar'
+                                                        }
+                                                    }";
+
+            // create temporary files to use for the source and transform
+            using (ReadOnlyTempFile tempSourceFilePath = new ReadOnlyTempFile(SimpleSourceString))
+            using (ReadOnlyTempFile tempTransformFilePath = new ReadOnlyTempFile(TransformSourceString))
+            {
+                // apply transform
+                JsonTransformation transformation = new JsonTransformation(tempTransformFilePath.FilePath, this.logger);
+
+                this.AssertTransformSucceeds(() => transformation.Apply(tempSourceFilePath.FilePath), true);
+            }
+        }
+
         private static void LogHasSingleEntry(List<JsonTransformationTestLogger.TestLogEntry> log, string fileName, int lineNumber, int linePosition, bool fromException)
         {
             Assert.Single(log);
@@ -291,21 +315,27 @@ namespace Microsoft.VisualStudio.Jdt.Tests
             using (var sourceStream = this.GetStreamFromString(sourceString))
             {
                 JsonTransformation transform = new JsonTransformation(transformStream, this.logger);
-                Stream result = null;
 
-                var exception = Record.Exception(() => result = transform.Apply(sourceStream));
+                this.AssertTransformSucceeds(() => transform.Apply(sourceStream), shouldTransformSucceed);
+            }
+        }
 
-                if (shouldTransformSucceed)
-                {
-                    Assert.NotNull(result);
-                    Assert.Null(exception);
-                }
-                else
-                {
-                    Assert.Null(result);
-                    Assert.NotNull(exception);
-                    Assert.IsType<JdtException>(exception);
-                }
+        private void AssertTransformSucceeds(Func<Stream> applyTransformMethod, bool shouldTransformSucceed)
+        {
+            Stream result = null;
+
+            var exception = Record.Exception(() => result = applyTransformMethod());
+
+            if (shouldTransformSucceed)
+            {
+                Assert.NotNull(result);
+                Assert.Null(exception);
+            }
+            else
+            {
+                Assert.Null(result);
+                Assert.NotNull(exception);
+                Assert.IsType<JdtException>(exception);
             }
         }
 
