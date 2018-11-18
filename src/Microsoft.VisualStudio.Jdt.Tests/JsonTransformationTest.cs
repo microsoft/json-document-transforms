@@ -299,6 +299,29 @@ namespace Microsoft.VisualStudio.Jdt.Tests
             }
         }
 
+        /// <summary>
+        /// Tests that a transformation succeeds even if the source and transform files are already open for reading.
+        /// </summary>
+        [Fact]
+        public void SharedRead()
+        {
+            const string TransformSourceString = @"{
+                                                        '@jdt.rename' : {
+                                                            'A' : 'Astar'
+                                                        }
+                                                    }";
+
+            // create temporary files to use for the source and transform
+            using (SharedReadLockTempFile tempSourceFilePath = new SharedReadLockTempFile(SimpleSourceString))
+            using (SharedReadLockTempFile tempTransformFilePath = new SharedReadLockTempFile(TransformSourceString))
+            {
+                // apply transform
+                JsonTransformation transformation = new JsonTransformation(tempTransformFilePath.FilePath, this.logger);
+
+                this.AssertTransformSucceeds(() => transformation.Apply(tempSourceFilePath.FilePath), true);
+            }
+        }
+
         private static void LogHasSingleEntry(List<JsonTransformationTestLogger.TestLogEntry> log, string fileName, int lineNumber, int linePosition, bool fromException)
         {
             Assert.Single(log);
