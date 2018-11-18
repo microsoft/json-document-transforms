@@ -41,7 +41,7 @@ namespace Microsoft.VisualStudio.Jdt
 
             this.logger = new JsonTransformationContextLogger(transformFile, logger);
 
-            using (FileStream transformStream = File.Open(transformFile, FileMode.Open, FileAccess.Read))
+            using (FileStream transformStream = File.Open(transformFile, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 this.SetTransform(transformStream);
             }
@@ -86,7 +86,7 @@ namespace Microsoft.VisualStudio.Jdt
             }
 
             // Open the file as streams and apply the transforms
-            using (Stream sourceStream = File.Open(sourceFile, FileMode.Open, FileAccess.Read))
+            using (Stream sourceStream = File.Open(sourceFile, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 return this.ApplyWithSourceName(sourceStream, sourceFile);
             }
