@@ -1,0 +1,15 @@
+﻿{
+  "A": {
+    "A1": 11,
+    "A2": 12
+  },
+  "B": [
+    {
+      // The entire object was replaced
+      "Replaced": true
+    },
+    {
+      "ReplaceThis": false
+    }
+  ]
+}

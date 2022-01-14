@@ -26,13 +26,13 @@ namespace Microsoft.VisualStudio.Jdt
         public override string Verb { get; } = "merge";
 
         /// <inheritdoc/>
-        protected override bool ProcessCore(JObject source, JToken transformValue, JsonTransformationContextLogger logger)
+        protected override bool ProcessCore(JToken source, JToken transformValue, JsonTransformationContextLogger logger)
         {
-            if (transformValue.Type == JTokenType.Object)
+            if (source.Type == JTokenType.Object && transformValue.Type == JTokenType.Object)
             {
                 // If both source and transform are objects,
                 // analyze the contents and perform the appropriate transforms
-                this.MergeWithObject(source, (JObject)transformValue, logger);
+                this.MergeWithObject((JObject)source, (JObject)transformValue, logger);
             }
             else
             {

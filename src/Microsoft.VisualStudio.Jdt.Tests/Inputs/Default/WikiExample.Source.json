@@ -1,0 +1,8 @@
+﻿{
+  "Version": 1,
+  "Settings": {
+    "Setting01": "Default01",
+    "Setting02": "Default02"
+  },
+  "SupportedVersions": [ 1, 2, 3 ]
+}

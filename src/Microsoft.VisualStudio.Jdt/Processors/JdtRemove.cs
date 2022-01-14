@@ -26,15 +26,18 @@ namespace Microsoft.VisualStudio.Jdt
         public override string Verb { get; } = "remove";
 
         /// <inheritdoc/>
-        protected override bool ProcessCore(JObject source, JToken transformValue, JsonTransformationContextLogger logger)
+        protected override bool ProcessCore(JToken source, JToken transformValue, JsonTransformationContextLogger logger)
         {
             switch (transformValue.Type)
             {
                 case JTokenType.String:
-                    // If the value is just a string, remove that node
-                    if (!source.Remove(transformValue.ToString()))
+                    if (source.Type == JTokenType.Object)
                     {
-                        logger.LogWarning(Resources.WarningMessage_UnableToRemove, ErrorLocation.Transform, transformValue);
+                        // If the value is just a string, remove that node
+                        if (!((JObject)source).Remove(transformValue.ToString()))
+                        {
+                            logger.LogWarning(Resources.WarningMessage_UnableToRemove, ErrorLocation.Transform, transformValue);
+                        }
                     }
 
                     break;
@@ -62,7 +65,7 @@ namespace Microsoft.VisualStudio.Jdt
             return true;
         }
 
-        private bool RemoveWithAttributes(JObject source, JObject removeObject, JsonTransformationContextLogger logger)
+        private bool RemoveWithAttributes(JToken source, JObject removeObject, JsonTransformationContextLogger logger)
         {
             var attributes = this.attributeValidator.ValidateAndReturnAttributes(removeObject);
 
@@ -126,7 +129,7 @@ namespace Microsoft.VisualStudio.Jdt
             return true;
         }
 
-        private bool RemoveThisNode(JObject nodeToRemove, JsonTransformationContextLogger logger)
+        private bool RemoveThisNode(JToken nodeToRemove, JsonTransformationContextLogger logger)
         {
             var parent = (JProperty)nodeToRemove.Parent;
             if (parent == null)

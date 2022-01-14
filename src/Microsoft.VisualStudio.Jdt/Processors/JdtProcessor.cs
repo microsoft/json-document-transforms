@@ -57,7 +57,7 @@ namespace Microsoft.VisualStudio.Jdt
         /// <param name="source">Object to be transformed.</param>
         /// <param name="transform">Object that specifies the transformation.</param>
         /// <param name="logger">The logger for the transformation.</param>
-        internal static void ProcessTransform(JObject source, JObject transform, JsonTransformationContextLogger logger)
+        internal static void ProcessTransform(JToken source, JObject transform, JsonTransformationContextLogger logger)
         {
             if (source == null)
             {
@@ -79,6 +79,6 @@ namespace Microsoft.VisualStudio.Jdt
         /// <param name="source">Object to be transformed.</param>
         /// <param name="transform">Object specifying the transformation.</param>
         /// <param name="logger">The logger for the transformation.</param>
-        internal abstract void Process(JObject source, JObject transform, JsonTransformationContextLogger logger);
+        internal abstract void Process(JToken source, JObject transform, JsonTransformationContextLogger logger);
     }
 }

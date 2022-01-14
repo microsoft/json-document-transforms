@@ -1,0 +1,14 @@
+﻿{
+  "A": [
+    1,
+    2,
+    3
+  ],
+  "B": [
+    "string1",
+    "string2",
+    "string3",
+    "string4",
+    "string5"
+  ]
+}

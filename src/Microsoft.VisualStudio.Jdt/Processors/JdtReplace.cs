@@ -25,7 +25,7 @@ namespace Microsoft.VisualStudio.Jdt
         public override string Verb { get; } = "replace";
 
         /// <inheritdoc/>
-        protected override bool ProcessCore(JObject source, JToken transformValue, JsonTransformationContextLogger logger)
+        protected override bool ProcessCore(JToken source, JToken transformValue, JsonTransformationContextLogger logger)
         {
             if (transformValue.Type == JTokenType.Object)
             {
@@ -48,7 +48,7 @@ namespace Microsoft.VisualStudio.Jdt
             }
         }
 
-        private bool ReplaceWithProperties(JObject source, JObject replaceObject, JsonTransformationContextLogger logger)
+        private bool ReplaceWithProperties(JToken source, JObject replaceObject, JsonTransformationContextLogger logger)
         {
             var attributes = this.attributeValidator.ValidateAndReturnAttributes(replaceObject);
 

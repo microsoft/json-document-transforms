@@ -53,7 +53,7 @@ namespace Microsoft.VisualStudio.Jdt
                 }
             }
 
-            public void Start(JObject source, JObject transform, JsonTransformationContextLogger logger)
+            public void Start(JToken source, JObject transform, JsonTransformationContextLogger logger)
             {
                 if (source == null)
                 {
@@ -82,7 +82,7 @@ namespace Microsoft.VisualStudio.Jdt
 
             public override string Verb { get; } = null;
 
-            internal override void Process(JObject source, JObject transform, JsonTransformationContextLogger logger)
+            internal override void Process(JToken source, JObject transform, JsonTransformationContextLogger logger)
             {
                 // Do nothing, the chain is done
             }

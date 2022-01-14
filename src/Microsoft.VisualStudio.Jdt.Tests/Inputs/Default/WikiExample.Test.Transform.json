@@ -1,0 +1,9 @@
+﻿{
+  "Version": 2,
+  "Settings": {
+    "Setting01": "NewValue01",
+    "Setting03": "NewValue03"
+  },
+  "SupportedVersions": [ 4, 5 ],
+  "UseThis": true
+}

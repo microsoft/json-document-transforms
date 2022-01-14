@@ -1,0 +1,14 @@
+﻿{
+  "@jdt.replace": {
+    "@jdt.path": "$.A.A2",
+    "@jdt.value": 12
+  },
+  "B": {
+    "@jdt.replace": {
+      "@jdt.path": "@[?(@.ReplaceThis == true)]",
+      "@jdt.value": {
+        "Replaced": true
+      }
+    }
+  }
+}

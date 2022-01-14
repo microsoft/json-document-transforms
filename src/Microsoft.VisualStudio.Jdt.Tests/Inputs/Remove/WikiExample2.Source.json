@@ -1,0 +1,14 @@
+﻿{
+  "A": {
+    "RemoveThis": true
+  },
+  "B": {
+    "RemoveThis": false
+  },
+  "C": {
+    "C1": 1,
+    "C2": {
+      "C21": 21
+    }
+  }
+}

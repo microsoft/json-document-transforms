@@ -1,0 +1,16 @@
+﻿{
+  // Overriden by the transformation file
+  "Version": 2,
+  "Settings": {
+    // Overriden by the transformation file
+    "Setting01": "NewValue01",
+    // Not present in the transformation file, unchanged
+    "Setting02": "Default02",
+    // Added by the transformation file
+    "Setting03": "NewValue03"
+  },
+  // The array in the transformation file was appended
+  "SupportedVersions": [ 1, 2, 3, 4, 5 ],
+  // Added by the transformation file
+  "UseThis": true
+}

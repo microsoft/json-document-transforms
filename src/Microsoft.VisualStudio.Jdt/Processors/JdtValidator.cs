@@ -22,7 +22,7 @@ namespace Microsoft.VisualStudio.Jdt
         public override string Verb { get; } = null;
 
         /// <inheritdoc/>
-        internal override void Process(JObject source, JObject transform, JsonTransformationContextLogger logger)
+        internal override void Process(JToken source, JObject transform, JsonTransformationContextLogger logger)
         {
             if (source == null)
             {

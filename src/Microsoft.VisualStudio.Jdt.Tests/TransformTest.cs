@@ -178,7 +178,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
 
                 var transformed = JObject.Load(jsonReader);
 
-                Assert.True(JObject.DeepEquals(expected, transformed));
+                Assert.True(JObject.DeepEquals(expected, transformed), $"expected: {expected}\ntransformed: {transformed}");
             }
         }
     }
