@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputTypeEx>library</OutputTypeEx>
-    <TargetFrameworks>netstandard1.5;net45</TargetFrameworks>
+    <TargetFrameworks>netstandard1.5;net472</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>
