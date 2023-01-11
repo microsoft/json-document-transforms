@@ -75,7 +75,7 @@ steps:
   inputs:
     vsVersion: 15.0
     solution: 'src\jdt.sln'
-    msbuildArgs: '/bl:"$(Build.ArtifactStagingDirectory)/build_logs/slowcheetah.binlog"'
+    msbuildArgs: '/bl:"$(Build.ArtifactStagingDirectory)/build_logs/jdt.binlog"'
     platform: $(BuildPlatform)
     configuration: $(BuildConfiguration)
   displayName: Build jdt solution
@@ -127,7 +127,7 @@ steps:
   inputs:
     SourceFolder: bin/$(BuildConfiguration)/net45
     Contents: |
-      **/Microsoft.VisualStudio.SlowCheetah?(*.dll|*.pdb|*.xml)
+      **/Microsoft.VisualStudio.Jdt?(*.dll|*.pdb|*.xml)
       !**/*Test*
     TargetFolder: $(Build.ArtifactStagingDirectory)/symbols
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
