@@ -22,6 +22,8 @@ queue:
   timeoutInMinutes: 60
 
 steps:
+- checkout: self
+  fetchDepth: 0
 - task: PowerShell@2
   displayName: Set VSTS variables
   inputs:
