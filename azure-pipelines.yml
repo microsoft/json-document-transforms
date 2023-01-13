@@ -7,6 +7,7 @@ trigger:
   branches:
     include:
       - master
+      - azure-pipelinestest
 
   paths:
     exclude:
@@ -127,7 +128,7 @@ steps:
 - task: CopyFiles@1
   displayName: Collecting symbols artifacts
   inputs:
-    SourceFolder: bin/$(BuildConfiguration)/net45
+    SourceFolder: bin/$(BuildConfiguration)/net472
     Contents: |
       **/Microsoft.VisualStudio.Jdt?(*.dll|*.pdb|*.xml)
       !**/*Test*
