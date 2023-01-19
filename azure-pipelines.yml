@@ -157,7 +157,7 @@ steps:
 - task: CopyFiles@1
   displayName: Collecting packages
   inputs:
-    SourceFolder: bin/$(BuildConfiguration)/
+    SourceFolder: bin/$(BuildConfiguration)/packages
     Contents: |
       *.nupkg
     TargetFolder: $(Build.ArtifactStagingDirectory)/packages
