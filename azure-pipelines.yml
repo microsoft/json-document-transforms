@@ -6,6 +6,7 @@
 trigger:
   branches:
     include:
+      - master
       - azure-pipelinestest
 
   paths:
@@ -22,6 +23,8 @@ queue:
   timeoutInMinutes: 60
 
 steps:
+- checkout: self
+  fetchDepth: 0
 - task: PowerShell@2
   displayName: Set VSTS variables
   inputs:
@@ -125,7 +128,7 @@ steps:
 - task: CopyFiles@1
   displayName: Collecting symbols artifacts
   inputs:
-    SourceFolder: bin/$(BuildConfiguration)/net45
+    SourceFolder: bin/$(BuildConfiguration)/net472
     Contents: |
       **/Microsoft.VisualStudio.Jdt?(*.dll|*.pdb|*.xml)
       !**/*Test*
