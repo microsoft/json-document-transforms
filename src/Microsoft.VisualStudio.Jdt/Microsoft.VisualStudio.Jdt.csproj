@@ -5,6 +5,7 @@
     <TargetFrameworks>netstandard1.5;net472</TargetFrameworks>
   </PropertyGroup>
 
+    <!--Tevin: Verify build still work-->
   <PropertyGroup>
      <Authors>Microsoft</Authors>
      <Owners>Microsoft, VisualStudioExtensibility</Owners>
