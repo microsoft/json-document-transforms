@@ -107,6 +107,10 @@ steps:
   displayName: MicroBuild Cleanup
   condition: succeededOrFailed()
 
+- task: ManifestGeneratorTask@0
+  inputs:
+    BuildDropPath: $(Build.ArtifactStagingDirectory)/build_logs
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: $(Build.ArtifactStagingDirectory)/MicroBuild/ESRPClient
