@@ -107,6 +107,12 @@ steps:
   displayName: MicroBuild Cleanup
   condition: succeededOrFailed()
 
+- task: PoliCheck@2
+  displayName: 'Run PoliCheck'
+  inputs:
+    targetType: F
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: $(Build.ArtifactStagingDirectory)/MicroBuild/ESRPClient
