@@ -115,6 +115,10 @@ steps:
   displayName: 'Publish Artifact: ESRP signing logs'
   condition: eq(variables['SignType'], 'real')
 
+- task: ManifestGeneratorTask@0
+  inputs:
+    BuildDropPath: $(Build.ArtifactStagingDirectory)/build_logs
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: $(Build.ArtifactStagingDirectory)/build_logs
