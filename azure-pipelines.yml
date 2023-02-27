@@ -111,6 +111,7 @@ steps:
   displayName: 'Run PoliCheck'
   inputs:
     targetType: F
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest')) # Very slow task
 
 - task: PublishBuildArtifacts@1
   inputs:
