@@ -19,7 +19,7 @@ variables:
   NugetSecurityAnalysisWarningLevel: none # nuget.config requires signed packages by trusted owners
 
 queue:
-  name: VSEngSS-MicroBuild2022-1ES
+  name: VSEngSS-MicroBuild2019-1ES
   timeoutInMinutes: 60
 
 steps:
