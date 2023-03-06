@@ -25,6 +25,13 @@ queue:
 steps:
 - checkout: self
   fetchDepth: 0
+
+- task: ComponentGovernanceComponentDetection@0
+  inputs:
+    scanType: 'Register'
+    verbosity: 'Verbose'
+    alertWarningLevel: 'High'
+
 - task: PowerShell@2
   displayName: Set VSTS variables
   inputs:
@@ -115,6 +122,12 @@ steps:
     FileDirPath: '$(Build.StagingDirectory)'
     DisableRemediation: false
 
+- task: PoliCheck@2
+  displayName: 'Run PoliCheck'
+  inputs:
+    targetType: F
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest')) # Very slow task
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: $(Build.ArtifactStagingDirectory)/MicroBuild/ESRPClient
@@ -123,6 +136,10 @@ steps:
   displayName: 'Publish Artifact: ESRP signing logs'
   condition: eq(variables['SignType'], 'real')
 
+- task: ManifestGeneratorTask@0
+  inputs:
+    BuildDropPath: $(Build.ArtifactStagingDirectory)/build_logs
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: $(Build.ArtifactStagingDirectory)/build_logs
@@ -130,6 +147,14 @@ steps:
     ArtifactType: Container
   displayName: 'Publish Artifact: build logs'
   condition: succeededOrFailed()
+
+- task: PublishSecurityAnalysisLogs@3
+  displayName: 'Publish Guardian Artifacts'
+  inputs:
+    ArtifactName: CodeAnalysisLogs
+    ArtifactType: Container
+    PublishProcessedResults: false
+    AllTools: true
 
 ## Following steps are skipped in PR builds
 
