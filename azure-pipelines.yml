@@ -114,6 +114,12 @@ steps:
   displayName: MicroBuild Cleanup
   condition: succeededOrFailed()
 
+- task: PoliCheck@2
+  displayName: 'Run PoliCheck'
+  inputs:
+    targetType: F
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest')) # Very slow task
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: $(Build.ArtifactStagingDirectory)/MicroBuild/ESRPClient
@@ -133,6 +139,14 @@ steps:
     ArtifactType: Container
   displayName: 'Publish Artifact: build logs'
   condition: succeededOrFailed()
+
+- task: PublishSecurityAnalysisLogs@3
+  displayName: 'Publish Guardian Artifacts'
+  inputs:
+    ArtifactName: CodeAnalysisLogs
+    ArtifactType: Container
+    PublishProcessedResults: false
+    AllTools: true
 
 ## Following steps are skipped in PR builds
 
