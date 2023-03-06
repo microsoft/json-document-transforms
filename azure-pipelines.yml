@@ -65,14 +65,6 @@ steps:
   displayName: Install MicroBuild Signing plugin
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
 
-- task: AntiMalware@4
-  displayName: 'Run MpCmdRun.exe'
-  inputs:
-    InputType: Basic
-    ScanType: CustomScan
-    FileDirPath: '$(Build.StagingDirectory)'
-    DisableRemediation: false
-
 - task: VSBuild@1
   inputs:
     vsVersion: 15.0
@@ -114,6 +106,14 @@ steps:
 - task: MicroBuildCleanup@1
   displayName: MicroBuild Cleanup
   condition: succeededOrFailed()
+
+- task: AntiMalware@4
+  displayName: 'Run MpCmdRun.exe'
+  inputs:
+    InputType: Basic
+    ScanType: CustomScan
+    FileDirPath: '$(Build.StagingDirectory)'
+    DisableRemediation: false
 
 - task: PublishBuildArtifacts@1
   inputs:
