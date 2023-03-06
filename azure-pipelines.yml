@@ -25,6 +25,13 @@ queue:
 steps:
 - checkout: self
   fetchDepth: 0
+
+- task: ComponentGovernanceComponentDetection@0
+  inputs:
+    scanType: 'Register'
+    verbosity: 'Verbose'
+    alertWarningLevel: 'High'
+
 - task: PowerShell@2
   displayName: Set VSTS variables
   inputs:
@@ -120,6 +127,10 @@ steps:
     ArtifactType: Container
   displayName: 'Publish Artifact: ESRP signing logs'
   condition: eq(variables['SignType'], 'real')
+
+- task: ManifestGeneratorTask@0
+  inputs:
+    BuildDropPath: $(Build.ArtifactStagingDirectory)/build_logs
 
 - task: PublishBuildArtifacts@1
   inputs:
