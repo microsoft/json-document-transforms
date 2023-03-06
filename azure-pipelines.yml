@@ -25,6 +25,13 @@ queue:
 steps:
 - checkout: self
   fetchDepth: 0
+
+- task: ComponentGovernanceComponentDetection@0
+  inputs:
+    scanType: 'Register'
+    verbosity: 'Verbose'
+    alertWarningLevel: 'High'
+
 - task: PowerShell@2
   displayName: Set VSTS variables
   inputs:
