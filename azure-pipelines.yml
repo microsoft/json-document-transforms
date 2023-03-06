@@ -19,12 +19,19 @@ variables:
   NugetSecurityAnalysisWarningLevel: none # nuget.config requires signed packages by trusted owners
 
 queue:
-  name: VSEngSS-MicroBuild2019-1ES
+  name: VSEngSS-MicroBuild2022-1ES
   timeoutInMinutes: 60
 
 steps:
 - checkout: self
   fetchDepth: 0
+
+- task: ComponentGovernanceComponentDetection@0
+  inputs:
+    scanType: 'Register'
+    verbosity: 'Verbose'
+    alertWarningLevel: 'High'
+
 - task: PowerShell@2
   displayName: Set VSTS variables
   inputs:
