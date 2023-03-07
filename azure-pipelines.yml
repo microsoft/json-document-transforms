@@ -114,6 +114,14 @@ steps:
   displayName: MicroBuild Cleanup
   condition: succeededOrFailed()
 
+- task: AntiMalware@4
+  displayName: 'Run MpCmdRun.exe'
+  inputs:
+    InputType: Basic
+    ScanType: CustomScan
+    FileDirPath: '$(Build.StagingDirectory)'
+    DisableRemediation: false
+
 - task: PoliCheck@2
   displayName: 'Run PoliCheck'
   inputs:
