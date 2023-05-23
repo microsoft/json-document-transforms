@@ -107,6 +107,7 @@ steps:
       !**\obj\**
     platform: $(BuildPlatform)
     configuration: $(BuildConfiguration)
+    diagnosticsEnabled: true
   displayName: Run Tests
   condition: and(succeeded(), ne(variables['SignType'], 'real'))
 
