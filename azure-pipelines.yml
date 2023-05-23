@@ -103,7 +103,7 @@ steps:
     testFiltercriteria: TestCategory!=FailsInCloudTest
     searchFolder: $(System.DefaultWorkingDirectory)\bin\
     testAssemblyVer2: |
-      $(BuildConfiguration)\**\*test*.dll
+      $(BuildConfiguration)\**\net472\*test*.dll
       !**\obj\**
     platform: $(BuildPlatform)
     configuration: $(BuildConfiguration)
