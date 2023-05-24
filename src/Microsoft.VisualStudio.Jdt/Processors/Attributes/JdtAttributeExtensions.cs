@@ -8,15 +8,15 @@ namespace Microsoft.VisualStudio.Jdt
     using System.Linq;
 
     /// <summary>
-    /// Implements extensions for <see cref="JdtAttributes"/>
+    /// Implements extensions for <see cref="JdtAttributes"/>.
     /// </summary>
     internal static class JdtAttributeExtensions
     {
         /// <summary>
-        /// Get the full name of an attribute, with the JDT prefix
+        /// Get the full name of an attribute, with the JDT prefix.
         /// </summary>
-        /// <param name="attribute">The attribute</param>
-        /// <returns>A string with the full name of the requested attribute</returns>
+        /// <param name="attribute">The attribute.</param>
+        /// <returns>A string with the full name of the requested attribute.</returns>
         internal static string FullName(this JdtAttributes attribute)
         {
             if (attribute == JdtAttributes.None)
@@ -28,11 +28,11 @@ namespace Microsoft.VisualStudio.Jdt
         }
 
         /// <summary>
-        /// Gets a <see cref="JdtAttributes"/> from an enumerable based on name
+        /// Gets a <see cref="JdtAttributes"/> from an enumerable based on name.
         /// </summary>
-        /// <param name="collection">The enumerable to search</param>
-        /// <param name="name">The name of the attribute</param>
-        /// <returns>The attribute with that name of <see cref="JdtAttributes.None"/> if no attribute was found</returns>
+        /// <param name="collection">The enumerable to search.</param>
+        /// <param name="name">The name of the attribute.</param>
+        /// <returns>The attribute with that name of <see cref="JdtAttributes.None"/> if no attribute was found.</returns>
         internal static JdtAttributes GetByName(this IEnumerable<JdtAttributes> collection, string name)
         {
             // The default value for the enum is 0, which is None

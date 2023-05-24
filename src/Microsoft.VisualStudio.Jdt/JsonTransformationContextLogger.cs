@@ -8,7 +8,7 @@ namespace Microsoft.VisualStudio.Jdt
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Logger wrapper for JDT transformations
+    /// Logger wrapper for JDT transformations.
     /// </summary>
     internal class JsonTransformationContextLogger
     {
@@ -28,7 +28,7 @@ namespace Microsoft.VisualStudio.Jdt
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonTransformationContextLogger"/> class.
         /// </summary>
-        /// <param name="transformationFile">The file that specifies the transformations</param>
+        /// <param name="transformationFile">The file that specifies the transformations.</param>
         /// <param name="extLogger">External logger to be used. Can be null.</param>
         internal JsonTransformationContextLogger(string transformationFile, IJsonTransformationLogger extLogger)
             : this(extLogger)
@@ -42,7 +42,7 @@ namespace Microsoft.VisualStudio.Jdt
         }
 
         /// <summary>
-        /// Gets or sets the source file of the current transformation
+        /// Gets or sets the source file of the current transformation.
         /// </summary>
         internal string SourceFile
         {
@@ -58,19 +58,19 @@ namespace Microsoft.VisualStudio.Jdt
         }
 
         /// <summary>
-        /// Gets the transformation file of the current transformation
+        /// Gets the transformation file of the current transformation.
         /// </summary>
         internal string TransformFile { get; } = Resources.DefaultTransformFileName;
 
         /// <summary>
-        /// Gets a value indicating whether the logger has logged errrors
+        /// Gets a value indicating whether the logger has logged errrors.
         /// </summary>
         internal bool HasLoggedErrors { get; private set; }
 
         /// <summary>
-        /// Logs an error from an internal exception
+        /// Logs an error from an internal exception.
         /// </summary>
-        /// <param name="exception">The exception to log</param>
+        /// <param name="exception">The exception to log.</param>
         internal void LogErrorFromException(Exception exception)
         {
             if (exception == null)
@@ -111,11 +111,11 @@ namespace Microsoft.VisualStudio.Jdt
         }
 
         /// <summary>
-        /// Logs a warning according to the line info
+        /// Logs a warning according to the line info.
         /// </summary>
-        /// <param name="message">The warning message</param>
-        /// <param name="location">The file that caused the warning</param>
-        /// <param name="lineInfo">The information of the line that caused the warning</param>
+        /// <param name="message">The warning message.</param>
+        /// <param name="location">The file that caused the warning.</param>
+        /// <param name="lineInfo">The information of the line that caused the warning.</param>
         internal void LogWarning(string message, ErrorLocation location, IJsonLineInfo lineInfo)
         {
             if (string.IsNullOrEmpty(message))

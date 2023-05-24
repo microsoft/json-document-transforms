@@ -7,7 +7,7 @@ namespace Microsoft.VisualStudio.Jdt
     using Newtonsoft.Json.Linq;
 
     /// <summary>
-    /// Represents a transformation
+    /// Represents a transformation.
     /// </summary>
     internal abstract partial class JdtProcessor
     {
@@ -23,7 +23,7 @@ namespace Microsoft.VisualStudio.Jdt
         public abstract string Verb { get; }
 
         /// <summary>
-        /// Gets the full verb corresponding the to the transformation
+        /// Gets the full verb corresponding the to the transformation.
         /// </summary>
         protected string FullVerb
         {
@@ -34,7 +34,7 @@ namespace Microsoft.VisualStudio.Jdt
         }
 
         /// <summary>
-        /// Gets the successor of the current transformation
+        /// Gets the successor of the current transformation.
         /// </summary>
         protected JdtProcessor Successor
         {
@@ -52,11 +52,11 @@ namespace Microsoft.VisualStudio.Jdt
 
         /// <summary>
         /// Executes the entire transformation with the given objects
-        /// Mutates the source object
+        /// Mutates the source object.
         /// </summary>
-        /// <param name="source">Object to be transformed</param>
-        /// <param name="transform">Object that specifies the transformation</param>
-        /// <param name="logger">The logger for the transformation</param>
+        /// <param name="source">Object to be transformed.</param>
+        /// <param name="transform">Object that specifies the transformation.</param>
+        /// <param name="logger">The logger for the transformation.</param>
         internal static void ProcessTransform(JObject source, JObject transform, JsonTransformationContextLogger logger)
         {
             if (source == null)
@@ -74,11 +74,11 @@ namespace Microsoft.VisualStudio.Jdt
         }
 
         /// <summary>
-        /// Executes the transformation
+        /// Executes the transformation.
         /// </summary>
-        /// <param name="source">Object to be transformed</param>
-        /// <param name="transform">Object specifying the transformation</param>
-        /// <param name="logger">The logger for the transformation</param>
+        /// <param name="source">Object to be transformed.</param>
+        /// <param name="transform">Object specifying the transformation.</param>
+        /// <param name="logger">The logger for the transformation.</param>
         internal abstract void Process(JObject source, JObject transform, JsonTransformationContextLogger logger);
     }
 }

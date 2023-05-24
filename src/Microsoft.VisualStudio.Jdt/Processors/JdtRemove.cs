@@ -7,7 +7,7 @@ namespace Microsoft.VisualStudio.Jdt
     using Newtonsoft.Json.Linq;
 
     /// <summary>
-    /// Represents the Remove transformation
+    /// Represents the Remove transformation.
     /// </summary>
     internal class JdtRemove : JdtArrayProcessor
     {

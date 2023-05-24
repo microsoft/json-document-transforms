@@ -7,7 +7,7 @@ namespace Microsoft.VisualStudio.Jdt
     using Newtonsoft.Json.Linq;
 
     /// <summary>
-    /// Represents the Merge transformation
+    /// Represents the Merge transformation.
     /// </summary>
     internal class JdtMerge : JdtArrayProcessor
     {

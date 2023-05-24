@@ -9,26 +9,26 @@ namespace Microsoft.VisualStudio.Jdt
     using Newtonsoft.Json.Linq;
 
     /// <summary>
-    /// Utilities class for handling JSON files
+    /// Utilities class for handling JSON files.
     /// </summary>
     public static class JdtUtilities
     {
         /// <summary>
-        /// The prefix for all JDT syntax
+        /// The prefix for all JDT syntax.
         /// </summary>
         internal const string JdtSyntaxPrefix = "@jdt.";
 
         /// <summary>
         /// The cached line info handling to use, based on Newtonsoft.Json version
-        /// https://github.com/JamesNK/Newtonsoft.Json/issues/1249
+        /// https://github.com/JamesNK/Newtonsoft.Json/issues/1249.
         /// </summary>
         private static LineInfoHandling? lineInfoHandling = null;
 
         /// <summary>
-        /// Wheter the given key corresponds to a JDT verb
+        /// Wheter the given key corresponds to a JDT verb.
         /// </summary>
-        /// <param name="key">The JSON key to analyze</param>
-        /// <returns>True if the key corresponds to a verb</returns>
+        /// <param name="key">The JSON key to analyze.</param>
+        /// <returns>True if the key corresponds to a verb.</returns>
         public static bool IsJdtSyntax(string key)
         {
             // If the key is empty of does not start with the correct prefix,
@@ -37,10 +37,10 @@ namespace Microsoft.VisualStudio.Jdt
         }
 
         /// <summary>
-        /// Gets the JDT syntax in the key
+        /// Gets the JDT syntax in the key.
         /// </summary>
-        /// <param name="key">The JDT key, in the correct syntax</param>
-        /// <returns>The string property. Null if the property does is not JDT syntax</returns>
+        /// <param name="key">The JDT key, in the correct syntax.</param>
+        /// <returns>The string property. Null if the property does is not JDT syntax.</returns>
         public static string GetJdtSyntax(string key)
         {
             // If the key does not start with the correct prefix, it is not a JDT verb
@@ -51,9 +51,9 @@ namespace Microsoft.VisualStudio.Jdt
         /// <summary>
         /// Gets the <see cref="LineInfoHandling"/> depending on the Newtonsoft version
         /// This is due to a bug in previous versions of JSON.Net that loaded line info on ignore and vice-versa
-        /// See https://github.com/JamesNK/Newtonsoft.Json/pull/1250
+        /// See https://github.com/JamesNK/Newtonsoft.Json/pull/1250.
         /// </summary>
-        /// <returns>The correct line info handling</returns>
+        /// <returns>The correct line info handling.</returns>
         internal static LineInfoHandling GetLineInfoHandling()
         {
             if (lineInfoHandling == null)

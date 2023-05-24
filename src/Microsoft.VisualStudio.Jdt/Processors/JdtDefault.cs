@@ -8,7 +8,7 @@ namespace Microsoft.VisualStudio.Jdt
     using Newtonsoft.Json.Linq;
 
     /// <summary>
-    /// Represents the default JDT transformation
+    /// Represents the default JDT transformation.
     /// </summary>
     internal class JdtDefault : JdtProcessor
     {

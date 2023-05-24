@@ -10,7 +10,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
     using Xunit;
 
     /// <summary>
-    /// Test class for <see cref="JsonTransformation"/>
+    /// Test class for <see cref="JsonTransformation"/>.
     /// </summary>
     public class JsonTransformationTest
     {
@@ -28,7 +28,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Tests the error caused when an invalid verb is found
+        /// Tests the error caused when an invalid verb is found.
         /// </summary>
         [Fact]
         public void InvalidVerb()
@@ -47,7 +47,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Tests the error caused by a verb having an invalid value
+        /// Tests the error caused by a verb having an invalid value.
         /// </summary>
         [Fact]
         public void InvalidVerbValue()
@@ -66,7 +66,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Tests the error caused when an invalid attribute is found within a verb
+        /// Tests the error caused when an invalid attribute is found within a verb.
         /// </summary>
         [Fact]
         public void InvalidAttribute()
@@ -87,7 +87,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Tests the error caused when a required attribute is not found
+        /// Tests the error caused when a required attribute is not found.
         /// </summary>
         [Fact]
         public void MissingAttribute()
@@ -108,7 +108,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Tests the error caused when a verb object contains attributes and other objects
+        /// Tests the error caused when a verb object contains attributes and other objects.
         /// </summary>
         [Fact]
         public void MixedAttributes()
@@ -131,7 +131,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Tests the error caused when an attribute has an incorrect value
+        /// Tests the error caused when an attribute has an incorrect value.
         /// </summary>
         [Fact]
         public void WrongAttributeValue()
@@ -152,7 +152,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Tests the error caused when a path attribute returns no result
+        /// Tests the error caused when a path attribute returns no result.
         /// </summary>
         [Fact]
         public void RemoveNonExistantNode()
@@ -173,7 +173,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Tests the error caused when attempting to remove the root node
+        /// Tests the error caused when attempting to remove the root node.
         /// </summary>
         [Fact]
         public void RemoveRoot()
@@ -192,7 +192,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Tests the error when a rename value is invalid
+        /// Tests the error when a rename value is invalid.
         /// </summary>
         [Fact]
         public void InvalidRenameValue()
@@ -213,7 +213,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Tests the error caused when attempting to rename a non-existant node
+        /// Tests the error caused when attempting to rename a non-existant node.
         /// </summary>
         [Fact]
         public void RenameNonExistantNode()
@@ -234,7 +234,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Test the error when attempting to replace the root with a non-object token
+        /// Test the error when attempting to replace the root with a non-object token.
         /// </summary>
         [Fact]
         public void ReplaceRoot()
@@ -253,7 +253,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Tests that an exception is thrown when <see cref="JsonTransformation.Apply(Stream)"/> is called
+        /// Tests that an exception is thrown when <see cref="JsonTransformation.Apply(Stream)"/> is called.
         /// </summary>
         [Fact]
         public void ThrowAndLogException()
