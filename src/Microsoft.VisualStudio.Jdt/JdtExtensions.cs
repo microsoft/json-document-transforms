@@ -9,15 +9,15 @@ namespace Microsoft.VisualStudio.Jdt
     using Newtonsoft.Json.Linq;
 
     /// <summary>
-    /// Defines extension methods used in JDT
+    /// Defines extension methods used in JDT.
     /// </summary>
     internal static class JdtExtensions
     {
         /// <summary>
-        /// Gets all the properties within the object that correspond to JDT syntax
+        /// Gets all the properties within the object that correspond to JDT syntax.
         /// </summary>
-        /// <param name="objectToSearch">The object to search</param>
-        /// <returns>An enumerable of properties that start with the JDT prefix</returns>
+        /// <param name="objectToSearch">The object to search.</param>
+        /// <returns>An enumerable of properties that start with the JDT prefix.</returns>
         internal static IEnumerable<JProperty> GetJdtProperties(this JObject objectToSearch)
         {
             if (objectToSearch == null)
@@ -29,10 +29,10 @@ namespace Microsoft.VisualStudio.Jdt
         }
 
         /// <summary>
-        /// Checks if an exception is critical
+        /// Checks if an exception is critical.
         /// </summary>
-        /// <param name="ex">The exception to check</param>
-        /// <returns>True if the exception is critical and should not be caught</returns>
+        /// <param name="ex">The exception to check.</param>
+        /// <returns>True if the exception is critical and should not be caught.</returns>
         internal static bool IsCriticalException(this Exception ex)
         {
             return ex is NullReferenceException
@@ -47,15 +47,15 @@ namespace Microsoft.VisualStudio.Jdt
         }
 
         /// <summary>
-        /// Clones a <see cref="JObject"/> preserving the line information
+        /// Clones a <see cref="JObject"/> preserving the line information.
         /// </summary>
-        /// <param name="objectToClone">The object to clone</param>
-        /// <returns>A clone of the object with its line info</returns>
+        /// <param name="objectToClone">The object to clone.</param>
+        /// <returns>A clone of the object with its line info.</returns>
         internal static JObject CloneWithLineInfo(this JObject objectToClone)
         {
             var loadSettings = new JsonLoadSettings()
             {
-                LineInfoHandling = JdtUtilities.GetLineInfoHandling()
+                LineInfoHandling = JdtUtilities.GetLineInfoHandling(),
             };
 
             using (var objectReader = objectToClone.CreateReader())

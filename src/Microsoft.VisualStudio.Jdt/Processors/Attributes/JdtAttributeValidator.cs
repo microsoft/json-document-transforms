@@ -9,7 +9,7 @@ namespace Microsoft.VisualStudio.Jdt
     using Newtonsoft.Json.Linq;
 
     /// <summary>
-    /// Valid JDT attributes
+    /// Valid JDT attributes.
     /// </summary>
     internal enum JdtAttributes
     {
@@ -30,7 +30,7 @@ namespace Microsoft.VisualStudio.Jdt
     }
 
     /// <summary>
-    /// Validator for JDT attributes within a verb object
+    /// Validator for JDT attributes within a verb object.
     /// </summary>
     internal class JdtAttributeValidator
     {
@@ -39,7 +39,7 @@ namespace Microsoft.VisualStudio.Jdt
         /// <summary>
         /// Initializes a new instance of the <see cref="JdtAttributeValidator"/> class.
         /// </summary>
-        /// <param name="validAttributes">The attributes that are valid</param>
+        /// <param name="validAttributes">The attributes that are valid.</param>
         internal JdtAttributeValidator(params JdtAttributes[] validAttributes)
         {
             this.validAttributes = validAttributes?.ToList() ?? new List<JdtAttributes>();
@@ -49,9 +49,9 @@ namespace Microsoft.VisualStudio.Jdt
         /// Validates the object and returns the appropriate attributes contained within it.
         /// Throws if an invalid jdt attribute is found.
         /// </summary>
-        /// <param name="transformObject">The object to validade</param>
+        /// <param name="transformObject">The object to validade.</param>
         /// <returns>A dictionary with the JToken attributes of each valid attribute.
-        /// An empty dictionary is returned if no valid properties are found</returns>
+        /// An empty dictionary is returned if no valid properties are found.</returns>
         internal Dictionary<JdtAttributes, JToken> ValidateAndReturnAttributes(JObject transformObject)
         {
             if (transformObject == null)

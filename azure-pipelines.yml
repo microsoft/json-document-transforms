@@ -17,7 +17,7 @@ trigger:
 
 variables:
   NugetSecurityAnalysisWarningLevel: none # nuget.config requires signed packages by trusted owners
-
+  Codeql.Enabled: true
 queue:
   name: VSEngSS-MicroBuild2022-1ES
   timeoutInMinutes: 60
@@ -103,10 +103,11 @@ steps:
     testFiltercriteria: TestCategory!=FailsInCloudTest
     searchFolder: $(System.DefaultWorkingDirectory)\bin\
     testAssemblyVer2: |
-      $(BuildConfiguration)\**\*test*.dll
+      $(BuildConfiguration)\**\net472\*test*.dll
       !**\obj\**
     platform: $(BuildPlatform)
     configuration: $(BuildConfiguration)
+    diagnosticsEnabled: true
   displayName: Run Tests
   condition: and(succeeded(), ne(variables['SignType'], 'real'))
 

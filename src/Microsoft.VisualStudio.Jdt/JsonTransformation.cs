@@ -9,7 +9,7 @@ namespace Microsoft.VisualStudio.Jdt
     using Newtonsoft.Json.Linq;
 
     /// <summary>
-    /// Represents a transformation based on a JSON file using JDT
+    /// Represents a transformation based on a JSON file using JDT.
     /// </summary>
     public class JsonTransformation
     {
@@ -21,7 +21,7 @@ namespace Microsoft.VisualStudio.Jdt
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonTransformation"/> class.
         /// </summary>
-        /// <param name="transformFile">The path to the file that specifies the transformation</param>
+        /// <param name="transformFile">The path to the file that specifies the transformation.</param>
         public JsonTransformation(string transformFile)
             : this(transformFile, null)
         {
@@ -30,8 +30,8 @@ namespace Microsoft.VisualStudio.Jdt
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonTransformation"/> class with an external logger.
         /// </summary>
-        /// <param name="transformFile">The path to the file that specifies the transformation</param>
-        /// <param name="logger">The external logger</param>
+        /// <param name="transformFile">The path to the file that specifies the transformation.</param>
+        /// <param name="logger">The external logger.</param>
         public JsonTransformation(string transformFile, IJsonTransformationLogger logger)
         {
             if (string.IsNullOrEmpty(transformFile))
@@ -50,7 +50,7 @@ namespace Microsoft.VisualStudio.Jdt
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonTransformation"/> class.
         /// </summary>
-        /// <param name="transform">The stream containing the JSON that specifies the transformation</param>
+        /// <param name="transform">The stream containing the JSON that specifies the transformation.</param>
         public JsonTransformation(Stream transform)
             : this(transform, null)
         {
@@ -59,8 +59,8 @@ namespace Microsoft.VisualStudio.Jdt
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonTransformation"/> class with an external logger.
         /// </summary>
-        /// <param name="transform">The stream containing the JSON that specifies the transformation</param>
-        /// /// <param name="logger">The external logger</param>
+        /// <param name="transform">The stream containing the JSON that specifies the transformation.</param>
+        /// /// <param name="logger">The external logger.</param>
         public JsonTransformation(Stream transform, IJsonTransformationLogger logger)
         {
             if (transform == null)
@@ -74,10 +74,10 @@ namespace Microsoft.VisualStudio.Jdt
         }
 
         /// <summary>
-        /// Transforms a JSON object
+        /// Transforms a JSON object.
         /// </summary>
-        /// <param name="sourceFile">The object to be transformed</param>
-        /// <returns>The stream with the result of the transform</returns>
+        /// <param name="sourceFile">The object to be transformed.</param>
+        /// <returns>The stream with the result of the transform.</returns>
         public Stream Apply(string sourceFile)
         {
             if (string.IsNullOrEmpty(sourceFile))
@@ -93,10 +93,10 @@ namespace Microsoft.VisualStudio.Jdt
         }
 
         /// <summary>
-        /// Transforms a JSON object
+        /// Transforms a JSON object.
         /// </summary>
-        /// <param name="source">The object to be transformed</param>
-        /// <returns>The stream with the result of the transform</returns>
+        /// <param name="source">The object to be transformed.</param>
+        /// <returns>The stream with the result of the transform.</returns>
         public Stream Apply(Stream source)
         {
             if (source == null)
@@ -138,7 +138,7 @@ namespace Microsoft.VisualStudio.Jdt
                     StreamWriter streamWriter = new StreamWriter(result);
                     JsonTextWriter jsonWriter = new JsonTextWriter(streamWriter)
                     {
-                        Formatting = Formatting.Indented
+                        Formatting = Formatting.Indented,
                     };
 
                     // Writes the changes in the source object to the stream
@@ -162,7 +162,7 @@ namespace Microsoft.VisualStudio.Jdt
             this.loadSettings = new JsonLoadSettings()
             {
                 CommentHandling = CommentHandling.Ignore,
-                LineInfoHandling = JdtUtilities.GetLineInfoHandling()
+                LineInfoHandling = JdtUtilities.GetLineInfoHandling(),
             };
 
             using (StreamReader transformStreamReader = new StreamReader(transformStream))

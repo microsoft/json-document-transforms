@@ -7,7 +7,7 @@ namespace Microsoft.VisualStudio.Jdt
     using Newtonsoft.Json.Linq;
 
     /// <summary>
-    /// Base for a processor that handles array values
+    /// Base for a processor that handles array values.
     /// </summary>
     internal abstract class JdtArrayProcessor : JdtProcessor
     {
@@ -39,22 +39,22 @@ namespace Microsoft.VisualStudio.Jdt
         }
 
         /// <summary>
-        /// The core transformation logic. Arrays are treated as the transform values
+        /// The core transformation logic. Arrays are treated as the transform values.
         /// </summary>
-        /// <param name="source">Object to be transformed</param>
-        /// <param name="transformValue">Value of the transform</param>
-        /// <param name="logger">The transformation context logger</param>
-        /// <returns>True if transforms should continue</returns>
+        /// <param name="source">Object to be transformed.</param>
+        /// <param name="transformValue">Value of the transform.</param>
+        /// <param name="logger">The transformation context logger.</param>
+        /// <returns>True if transforms should continue.</returns>
         protected abstract bool ProcessCore(JObject source, JToken transformValue, JsonTransformationContextLogger logger);
 
         /// <summary>
         /// Performs the initial logic of processing arrays.
-        /// Arrays cause the transform to be applied to each value in them
+        /// Arrays cause the transform to be applied to each value in them.
         /// </summary>
-        /// <param name="source">Object to be transformed</param>
-        /// <param name="transformValue">Value of the transform</param>
-        /// <param name="logger">The transformation context logger</param>
-        /// <returns>True if transforms should continue</returns>
+        /// <param name="source">Object to be transformed.</param>
+        /// <param name="transformValue">Value of the transform.</param>
+        /// <param name="logger">The transformation context logger.</param>
+        /// <returns>True if transforms should continue.</returns>
         private bool Transform(JObject source, JToken transformValue, JsonTransformationContextLogger logger)
         {
             if (transformValue.Type == JTokenType.Array)

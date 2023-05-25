@@ -11,7 +11,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
     using Xunit;
 
     /// <summary>
-    /// Test class for JDT transformations
+    /// Test class for JDT transformations.
     /// </summary>
     public class TransformTest
     {
@@ -34,7 +34,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         private static readonly string MergeTestDirectory = TestInputDirectory + "Merge\\";
 
         /// <summary>
-        /// Gets inputs for the Default transformation
+        /// Gets inputs for the Default transformation.
         /// </summary>
         public static IEnumerable<object[]> GetDefaultInputs
         {
@@ -46,7 +46,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Gets inputs for the Remove transformation
+        /// Gets inputs for the Remove transformation.
         /// </summary>
         public static IEnumerable<object[]> GetRemoveInputs
         {
@@ -57,7 +57,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Gets inputs for the Rename transformation
+        /// Gets inputs for the Rename transformation.
         /// </summary>
         public static IEnumerable<object[]> GetRenameInputs
         {
@@ -68,7 +68,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Gets inputs for the Replace transformation
+        /// Gets inputs for the Replace transformation.
         /// </summary>
         public static IEnumerable<object[]> GetReplaceInputs
         {
@@ -79,7 +79,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Gets inputs for the Merge transformation
+        /// Gets inputs for the Merge transformation.
         /// </summary>
         public static IEnumerable<object[]> GetMergeInputs
         {
@@ -90,10 +90,10 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Tests the Default transformation
+        /// Tests the Default transformation.
         /// </summary>
         /// <param name="testFileName">Name of the test being performed.
-        /// Corresponds to a group of files in the input folder</param>
+        /// Corresponds to a group of files in the input folder.</param>
         [Theory]
         [MemberData(nameof(GetDefaultInputs))]
         public void Default(string testFileName)
@@ -102,10 +102,10 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Tests the Remove transformation
+        /// Tests the Remove transformation.
         /// </summary>
         /// <param name="testFileName">Name of the test being performed.
-        /// Corresponds to a group of files in the input folder</param>
+        /// Corresponds to a group of files in the input folder.</param>
         [Theory]
         [MemberData(nameof(GetRemoveInputs))]
         public void Remove(string testFileName)
@@ -114,10 +114,10 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Tests the Rename transformation
+        /// Tests the Rename transformation.
         /// </summary>
         /// <param name="testFileName">Name of the test being performed.
-        /// Corresponds to a group of files in the input folder</param>
+        /// Corresponds to a group of files in the input folder.</param>
         [Theory]
         [MemberData(nameof(GetRenameInputs))]
         public void Rename(string testFileName)
@@ -126,10 +126,10 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Tests the Replace transformation
+        /// Tests the Replace transformation.
         /// </summary>
         /// <param name="testFileName">Name of the test being performed.
-        /// Corresponds to a group of files in the input folder</param>
+        /// Corresponds to a group of files in the input folder.</param>
         [Theory]
         [MemberData(nameof(GetReplaceInputs))]
         public void Replace(string testFileName)
@@ -138,10 +138,10 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Tests the Merge transformation
+        /// Tests the Merge transformation.
         /// </summary>
         /// <param name="testFileName">Name of the test being performed.
-        /// Corresponds to a group of files in the input folder</param>
+        /// Corresponds to a group of files in the input folder.</param>
         [Theory]
         [MemberData(nameof(GetMergeInputs))]
         public void Merge(string testFileName)

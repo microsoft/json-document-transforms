@@ -9,7 +9,7 @@ namespace Microsoft.VisualStudio.Jdt
     using Newtonsoft.Json.Linq;
 
     /// <summary>
-    /// The JdtProcessor chain
+    /// The JdtProcessor chain.
     /// </summary>
     internal abstract partial class JdtProcessor
     {
@@ -25,7 +25,7 @@ namespace Microsoft.VisualStudio.Jdt
                 new JdtReplace(),
                 new JdtRename(),
                 new JdtMerge(),
-                new JdtDefault()
+                new JdtDefault(),
             };
 
             public JdtProcessorChain()
@@ -70,7 +70,7 @@ namespace Microsoft.VisualStudio.Jdt
         }
 
         /// <summary>
-        /// Represents the end of the transformation chain
+        /// Represents the end of the transformation chain.
         /// </summary>
         private class JdtEndOfChain : JdtProcessor
         {

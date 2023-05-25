@@ -7,22 +7,22 @@ namespace Microsoft.VisualStudio.Jdt.Tests
     using System.Collections.Generic;
 
     /// <summary>
-    /// Mock logger to test <see cref="JsonTransformation"/>
+    /// Mock logger to test <see cref="JsonTransformation"/>.
     /// </summary>
     public class JsonTransformationTestLogger : IJsonTransformationLogger
     {
         /// <summary>
-        /// Gets the error log
+        /// Gets the error log.
         /// </summary>
         public List<TestLogEntry> ErrorLog { get; } = new List<TestLogEntry>();
 
         /// <summary>
-        /// Gets the warning log
+        /// Gets the warning log.
         /// </summary>
         public List<TestLogEntry> WarningLog { get; } = new List<TestLogEntry>();
 
         /// <summary>
-        /// Gets the message log
+        /// Gets the message log.
         /// </summary>
         public List<TestLogEntry> MessageLog { get; } = new List<TestLogEntry>();
 
@@ -32,7 +32,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
             this.ErrorLog.Add(new TestLogEntry()
             {
                 Message = message,
-                FromException = false
+                FromException = false,
             });
         }
 
@@ -45,7 +45,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
                 FileName = fileName,
                 LineNumber = lineNumber,
                 LinePosition = linePosition,
-                FromException = false
+                FromException = false,
             });
         }
 
@@ -55,7 +55,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
             this.ErrorLog.Add(new TestLogEntry()
             {
                 Message = ex.Message,
-                FromException = false
+                FromException = false,
             });
         }
 
@@ -68,7 +68,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
                 FileName = fileName,
                 LineNumber = lineNumber,
                 LinePosition = linePosition,
-                FromException = true
+                FromException = true,
             });
         }
 
@@ -78,7 +78,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
             this.MessageLog.Add(new TestLogEntry()
             {
                 Message = message,
-                FromException = false
+                FromException = false,
             });
         }
 
@@ -91,7 +91,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
                 FileName = fileName,
                 LineNumber = lineNumber,
                 LinePosition = linePosition,
-                FromException = false
+                FromException = false,
             });
         }
 
@@ -101,7 +101,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
             this.WarningLog.Add(new TestLogEntry()
             {
                 Message = message,
-                FromException = false
+                FromException = false,
             });
         }
 
@@ -114,7 +114,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
                 FileName = fileName,
                 LineNumber = 0,
                 LinePosition = 0,
-                FromException = false
+                FromException = false,
             });
         }
 
@@ -127,38 +127,38 @@ namespace Microsoft.VisualStudio.Jdt.Tests
                 FileName = fileName,
                 LineNumber = lineNumber,
                 LinePosition = linePosition,
-                FromException = false
+                FromException = false,
             });
         }
 
         /// <summary>
         /// An test entry for the logger.
-        /// Corresponds to an error, warning or message
+        /// Corresponds to an error, warning or message.
         /// </summary>
         public struct TestLogEntry
         {
             /// <summary>
-            /// Gets or sets the log message
+            /// Gets or sets the log message.
             /// </summary>
             public string Message { get; set; }
 
             /// <summary>
-            /// Gets or sets the file that caused the entry
+            /// Gets or sets the file that caused the entry.
             /// </summary>
             public string FileName { get; set; }
 
             /// <summary>
-            /// Gets or sets the line in the file
+            /// Gets or sets the line in the file.
             /// </summary>
             public int LineNumber { get; set; }
 
             /// <summary>
-            /// Gets or sets the position in the line
+            /// Gets or sets the position in the line.
             /// </summary>
             public int LinePosition { get; set; }
 
             /// <summary>
-            /// Gets or sets a value indicating whether whether the entry was caused from an exception
+            /// Gets or sets a value indicating whether whether the entry was caused from an exception.
             /// </summary>
             public bool FromException { get; set; }
         }

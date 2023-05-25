@@ -7,7 +7,7 @@ namespace Microsoft.VisualStudio.Jdt
     using Newtonsoft.Json.Linq;
 
     /// <summary>
-    /// Represents the Rename transformation
+    /// Represents the Rename transformation.
     /// </summary>
     internal class JdtRename : JdtArrayProcessor
     {

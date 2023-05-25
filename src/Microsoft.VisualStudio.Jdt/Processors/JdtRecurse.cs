@@ -9,7 +9,7 @@ namespace Microsoft.VisualStudio.Jdt
     using Newtonsoft.Json.Linq;
 
     /// <summary>
-    /// Represents a recursive JDT transformation
+    /// Represents a recursive JDT transformation.
     /// </summary>
     internal class JdtRecurse : JdtProcessor
     {

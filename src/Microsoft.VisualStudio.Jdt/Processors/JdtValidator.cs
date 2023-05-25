@@ -9,12 +9,12 @@ namespace Microsoft.VisualStudio.Jdt
     using Newtonsoft.Json.Linq;
 
     /// <summary>
-    /// Validates the JDT verbs in the transformation
+    /// Validates the JDT verbs in the transformation.
     /// </summary>
     internal class JdtValidator : JdtProcessor
     {
         /// <summary>
-        /// Gets set of the valid verbs for the transformation
+        /// Gets set of the valid verbs for the transformation.
         /// </summary>
         public HashSet<string> ValidVerbs { get; } = new HashSet<string>();
 

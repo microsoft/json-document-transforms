@@ -7,14 +7,14 @@ namespace Microsoft.VisualStudio.Jdt.Tests
     using Xunit;
 
     /// <summary>
-    /// Test class for <see cref="JdtUtilities"/>
+    /// Test class for <see cref="JdtUtilities"/>.
     /// </summary>
     public class JdtUtilitiesTest
     {
         /// <summary>
-        /// Tests <see cref="JdtUtilities.IsJdtSyntax(string)"/> with invalid JSON syntax
+        /// Tests <see cref="JdtUtilities.IsJdtSyntax(string)"/> with invalid JSON syntax.
         /// </summary>
-        /// <param name="key">Key to test</param>
+        /// <param name="key">Key to test.</param>
         [Theory]
         [InlineData(null)]
         [InlineData("")]
@@ -29,9 +29,9 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Tests <see cref="JdtUtilities.IsJdtSyntax(string)"/> with valid JSON syntax
+        /// Tests <see cref="JdtUtilities.IsJdtSyntax(string)"/> with valid JSON syntax.
         /// </summary>
-        /// <param name="key">Key to test</param>
+        /// <param name="key">Key to test.</param>
         [Theory]
         [InlineData("@jdt.NotAVerb")]
         [InlineData("@jdt.Remove")]
@@ -44,9 +44,9 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Tests <see cref="JdtUtilities.GetJdtSyntax(string)"/> with invalid JSON syntax
+        /// Tests <see cref="JdtUtilities.GetJdtSyntax(string)"/> with invalid JSON syntax.
         /// </summary>
-        /// <param name="key">Key to test</param>
+        /// <param name="key">Key to test.</param>
         [Theory]
         [InlineData(null)]
         [InlineData("")]
@@ -61,15 +61,15 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         }
 
         /// <summary>
-        /// Tests <see cref="JdtUtilities.GetJdtSyntax(string)"/> with valid JSON syntax
+        /// Tests <see cref="JdtUtilities.GetJdtSyntax(string)"/> with valid JSON syntax.
         /// </summary>
         [Fact]
         public void GetValidJdtSyntax()
         {
             Assert.Equal(JdtUtilities.GetJdtSyntax("@jdt."), string.Empty);
-            Assert.Equal(JdtUtilities.GetJdtSyntax("@jdt. "), " ");
-            Assert.Equal(JdtUtilities.GetJdtSyntax("@jdt.verb"), "verb");
-            Assert.Equal(JdtUtilities.GetJdtSyntax("@jdt.NotAVerb"), "NotAVerb");
+            Assert.Equal(" ", JdtUtilities.GetJdtSyntax("@jdt. "));
+            Assert.Equal("verb", JdtUtilities.GetJdtSyntax("@jdt.verb"));
+            Assert.Equal("NotAVerb", JdtUtilities.GetJdtSyntax("@jdt.NotAVerb"));
         }
     }
 }
