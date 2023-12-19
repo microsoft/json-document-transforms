@@ -175,7 +175,7 @@ steps:
       **/Microsoft.VisualStudio.Jdt*.dll
       **/Microsoft.VisualStudio.Jdt*.pdb
     TargetFolder: $(Agent.TempDirectory)\APIScanFiles
-  condition: and(succeeded(), eq(parameters['RunApiScanTools'], 'true'))
+  condition: and(succeeded(), eq(parameters.RunApiScanTools, 'true'))
 
  ### Run latest version of APIScan listed at https://www.1eswiki.com/wiki/APIScan_Build_Task
 - task: APIScan@2
@@ -186,7 +186,7 @@ steps:
     softwareVersionNum: '$(Build.BuildId)'
     isLargeApp: false
     toolVersion: 'Latest'
-  condition: and(succeeded(), eq(parameters['RunApiScanTools'], 'true'))
+  condition: and(succeeded(), eq(parameters.RunApiScanTools, 'true'))
   env:
     AzureServicesAuthConnectionString: runAs=App;AppId=$(ApiScanClientId);TenantId=$(ApiScanTenant);AppKey=$(ApiScanSecret)
 
@@ -207,7 +207,7 @@ steps:
   inputs:
     GdnPublishTsaOnboard: true
     GdnPublishTsaConfigFile: '$(Build.SourcesDirectory)\azure-pipelines\TSAOptions.json'
-  condition: eq(parameters['RunApiScanTools'], 'true')
+  condition: eq(parameters.RunApiScanTools, 'true')
 
 - task: PublishSecurityAnalysisLogs@3
   displayName: 'Publish Guardian Artifacts'
