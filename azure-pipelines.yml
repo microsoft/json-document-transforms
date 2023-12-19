@@ -182,7 +182,7 @@ steps:
   displayName: Run APIScan
   inputs:
     softwareFolder: $(Agent.TempDirectory)\APIScanFiles
-    softwareName: 'StreamJsonRpc'
+    softwareName: 'json-document-transform'
     softwareVersionNum: '$(Build.BuildId)'
     isLargeApp: false
     toolVersion: 'Latest'
