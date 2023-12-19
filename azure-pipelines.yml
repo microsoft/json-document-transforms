@@ -15,6 +15,15 @@ trigger:
       - doc
       - '*.md'
 
+schedules:
+    # Weekly api-scan builds
+  - cron: "0 10 * * Sun" # Every Sunday @ 2 am PST
+    displayName: Weekly api-scan
+    always: true
+    branches:
+      include:
+      - main
+
 parameters:
 - name: RunApiScanTools
   displayName: Run API Scan?
@@ -23,6 +32,10 @@ parameters:
 
 variables:
   NugetSecurityAnalysisWarningLevel: none # nuget.config requires signed packages by trusted owners
+  ${{ if or(eq(parameters.RunApiScanTools, 'true'), eq(variables['Build.CronSchedule.DisplayName'], 'Weekly api-scan')) }}:
+    RunAPIScan: true
+  ${{ else }}:
+    RunAPIScan: false
   Codeql.Enabled: true
   Codeql.TSAEnabled: true
   Codeql.TSAOptionsPath: $(Build.SourcesDirectory)\azure-pipelines\TSAOptions.json
@@ -175,7 +188,7 @@ steps:
       **/Microsoft.VisualStudio.Jdt*.dll
       **/Microsoft.VisualStudio.Jdt*.pdb
     TargetFolder: $(Agent.TempDirectory)\APIScanFiles
-  condition: and(succeeded(), eq(parameters.RunApiScanTools, 'true'))
+  condition: and(succeeded(), eq(variables['RunApiScan'], 'true'))
 
  ### Run latest version of APIScan listed at https://www.1eswiki.com/wiki/APIScan_Build_Task
 - task: APIScan@2
@@ -186,7 +199,7 @@ steps:
     softwareVersionNum: '$(Build.BuildId)'
     isLargeApp: false
     toolVersion: 'Latest'
-  condition: and(succeeded(), eq(parameters.RunApiScanTools, 'true'))
+  condition: and(succeeded(), eq(variables['RunApiScan'], 'true'))
   env:
     AzureServicesAuthConnectionString: runAs=App;AppId=$(ApiScanClientId);TenantId=$(ApiScanTenant);AppKey=$(ApiScanSecret)
 
@@ -207,7 +220,7 @@ steps:
   inputs:
     GdnPublishTsaOnboard: true
     GdnPublishTsaConfigFile: '$(Build.SourcesDirectory)\azure-pipelines\TSAOptions.json'
-  condition: eq(parameters.RunApiScanTools, 'true')
+  condition: eq(variables['RunApiScan'], 'true')
 
 - task: PublishSecurityAnalysisLogs@3
   displayName: 'Publish Guardian Artifacts'
