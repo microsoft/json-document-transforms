@@ -24,6 +24,9 @@ parameters:
 variables:
   NugetSecurityAnalysisWarningLevel: none # nuget.config requires signed packages by trusted owners
   Codeql.Enabled: true
+  Codeql.TSAEnabled: true
+  Codeql.TSAOptionsPath: $(Build.SourcesDirectory)\azure-pipelines\TSAOptions.json
+
 queue:
   name: VSEngSS-MicroBuild2022-1ES
   timeoutInMinutes: 60
@@ -172,7 +175,7 @@ steps:
       **/Microsoft.VisualStudio.Jdt*.dll
       **/Microsoft.VisualStudio.Jdt*.pdb
     TargetFolder: $(Agent.TempDirectory)\APIScanFiles
-  condition: and(succeeded(), ne(variables['DisableAPIScan'], 'true'))
+  condition: and(succeeded(), eq(parameters['RunApiScanTools'], 'true'))
 
  ### Run latest version of APIScan listed at https://www.1eswiki.com/wiki/APIScan_Build_Task
 - task: APIScan@2
@@ -183,7 +186,7 @@ steps:
     softwareVersionNum: '$(Build.BuildId)'
     isLargeApp: false
     toolVersion: 'Latest'
-  condition: and(succeeded(), ne(variables['DisableAPIScan'], 'true'))
+  condition: and(succeeded(), eq(parameters['RunApiScanTools'], 'true'))
   env:
     AzureServicesAuthConnectionString: runAs=App;AppId=$(ApiScanClientId);TenantId=$(ApiScanTenant);AppKey=$(ApiScanSecret)
 
@@ -197,6 +200,14 @@ steps:
     CredScan: true
     PoliCheck: true
     PoliCheckBreakOn: Severity4Above
+
+# Create bugs for APIScan
+- task: TSAUpload@2
+  displayName: 'Create bugs for APIScan'
+  inputs:
+    GdnPublishTsaOnboard: true
+    GdnPublishTsaConfigFile: '$(Build.SourcesDirectory)\azure-pipelines\TSAOptions.json'
+  condition: eq(parameters['RunApiScanTools'], 'true')
 
 - task: PublishSecurityAnalysisLogs@3
   displayName: 'Publish Guardian Artifacts'
