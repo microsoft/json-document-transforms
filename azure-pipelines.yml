@@ -115,7 +115,7 @@ steps:
 - task: MicroBuildCodesignVerify@3
   inputs:
     TargetFolders: |
-      $(Build.SourcesDirectory)/bin/Packages/$(BuildConfiguration)
+      $(Build.SourcesDirectory)\bin\Packages\$(BuildConfiguration)
     ApprovalListPathForCerts: $(Build.SourcesDirectory)\src\build\no_authenticode.txt
     ApprovalListPathForSigs: $(Build.SourcesDirectory)\src\build\no_strongname.txt
   displayName: Verify code signing
