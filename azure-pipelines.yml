@@ -86,7 +86,7 @@ steps:
   inputs:
     versionSpec: 6.4.0
 
-- task: MicroBuildSigningPlugin@3
+- task: MicroBuildSigningPlugin@4
   inputs:
     signType: $(SignType)
     esrpSigning: true
@@ -114,7 +114,8 @@ steps:
 
 - task: MicroBuildCodesignVerify@3
   inputs:
-    TargetFolder: $(Build.SourcesDirectory)\bin\$(BuildConfiguration)\packages
+    TargetFolders: |
+      $(Build.SourcesDirectory)/bin/Packages/$(BuildConfiguration)
     ApprovalListPathForCerts: $(Build.SourcesDirectory)\src\build\no_authenticode.txt
     ApprovalListPathForSigs: $(Build.SourcesDirectory)\src\build\no_strongname.txt
   displayName: Verify code signing
