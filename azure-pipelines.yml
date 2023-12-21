@@ -112,11 +112,11 @@ steps:
     configuration: $(BuildConfiguration)
   displayName: Build jdt solution
 
-- task: MicroBuildCodesignVerify@1
+- task: MicroBuildCodesignVerify@3
   inputs:
     TargetFolder: $(Build.SourcesDirectory)\bin\$(BuildConfiguration)\packages
-    WhiteListPathForCerts: $(Build.SourcesDirectory)\src\build\no_authenticode.txt
-    WhiteListPathForSigs: $(Build.SourcesDirectory)\src\build\no_strongname.txt
+    ApprovalListPathForCerts: $(Build.SourcesDirectory)\src\build\no_authenticode.txt
+    ApprovalListPathForSigs: $(Build.SourcesDirectory)\src\build\no_strongname.txt
   displayName: Verify code signing
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
 
@@ -204,7 +204,7 @@ steps:
     AzureServicesAuthConnectionString: runAs=App;AppId=$(ApiScanClientId);TenantId=$(ApiScanTenant);AppKey=$(ApiScanSecret)
 
  ### Create formatted HTML code analysis log file.
-- task: securedevelopmentteam.vss-secure-development-tools.build-task-report.SdtReport@1
+- task: securedevelopmentteam.vss-secure-development-tools.build-task-report.SdtReport@2
   displayName: 'Create Security Analysis Report'
   inputs:
     APIScan: true
@@ -214,14 +214,6 @@ steps:
     PoliCheck: true
     PoliCheckBreakOn: Severity4Above
 
-# Create bugs for APIScan
-- task: TSAUpload@2
-  displayName: 'Create bugs for APIScan'
-  inputs:
-    GdnPublishTsaOnboard: true
-    GdnPublishTsaConfigFile: '$(Build.SourcesDirectory)\azure-pipelines\TSAOptions.json'
-  condition: eq(variables['RunApiScan'], 'true')
-
 - task: PublishSecurityAnalysisLogs@3
   displayName: 'Publish Guardian Artifacts'
   inputs:
@@ -229,6 +221,14 @@ steps:
     ArtifactType: Container
     PublishProcessedResults: false
     AllTools: true
+
+# Create bugs for APIScan
+- task: TSAUpload@2
+  displayName: 'Create bugs for APIScan'
+  inputs:
+    GdnPublishTsaOnboard: true
+    GdnPublishTsaConfigFile: '$(Build.SourcesDirectory)\azure-pipelines\TSAOptions.json'
+  condition: eq(variables['RunApiScan'], 'true')
 
 ## Following steps are skipped in PR builds
 
