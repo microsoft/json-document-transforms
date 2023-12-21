@@ -86,7 +86,7 @@ steps:
   inputs:
     versionSpec: 6.4.0
 
-- task: MicroBuildSigningPlugin@1
+- task: MicroBuildSigningPlugin@3
   inputs:
     signType: $(SignType)
     esrpSigning: true
