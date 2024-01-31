@@ -22,7 +22,7 @@ schedules:
     always: true
     branches:
       include:
-      - main
+      - master
 
 parameters:
 - name: RunApiScanTools
