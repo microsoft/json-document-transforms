@@ -13,7 +13,7 @@
      <PackageTags>json transformation transforms file-transform jdt</PackageTags>
      <PackageIconUrl>https://aka.ms/VsExtensibilityIcon</PackageIconUrl>
      <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-     <PackageLicenseUrl>https://raw.githubusercontent.com/Microsoft/json-document-transforms/master/LICENSE</PackageLicenseUrl>
+     <PackageLicenseUrl>https://raw.githubusercontent.com/Microsoft/json-document-transforms/main/LICENSE</PackageLicenseUrl>
      <PackageProjectUrl>https://github.com/Microsoft/json-document-transforms</PackageProjectUrl>
      <RepositoryUrl>https://github.com/Microsoft/json-document-transforms</RepositoryUrl>
      <GeneratePackageOnBuild>True</GeneratePackageOnBuild>

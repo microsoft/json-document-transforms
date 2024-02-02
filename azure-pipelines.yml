@@ -6,8 +6,7 @@
 trigger:
   branches:
     include:
-      - master
-      - azure-pipelinestest
+      - main
 
   paths:
     exclude:
