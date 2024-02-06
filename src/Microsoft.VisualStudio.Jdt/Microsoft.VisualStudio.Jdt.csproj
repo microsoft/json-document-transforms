@@ -20,7 +20,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="Microsoft.VisualStudio.Internal.MicroBuild.VisualStudio" Version="2.0.66" PrivateAssets="all" />
+	<PackageReference Include="Microsoft.VisualStudio.Internal.MicroBuild.VisualStudio" Version="2.0.147" PrivateAssets="all" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
