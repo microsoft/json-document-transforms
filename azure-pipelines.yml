@@ -6,8 +6,7 @@
 trigger:
   branches:
     include:
-      - master
-      - azure-pipelinestest
+      - main
 
   paths:
     exclude:
@@ -85,6 +84,11 @@ steps:
   displayName: Pin nuget.exe version
   inputs:
     versionSpec: 6.4.0
+
+- task: NuGetAuthenticate@1
+  displayName: 'NuGet Authenticate'
+  inputs:
+    forceReinstallCredentialProvider: true
 
 - task: MicroBuildSigningPlugin@4
   inputs:
