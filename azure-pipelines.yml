@@ -36,7 +36,7 @@ variables:
   Codeql.Enabled: true
   Codeql.TSAEnabled: true
   Codeql.TSAOptionsPath: $(Build.SourcesDirectory)\azure-pipelines\TSAOptions.json
-  
+
 resources:
   repositories:
   - repository: MicroBuildTemplate
@@ -67,6 +67,8 @@ extends:
               enabled: true
               signType: $(SignType)
               zipSources: false
+              feedSource: 'https://pkgs.dev.azure.com/devdiv/_packaging/MicroBuildToolset/nuget/v3/index.json' # Optional parameter: Artifact feed for outside DevDiv.
+              azureSubscription: 'MicroBuild Signing Task (DevDiv)' # Optional parameter: Microbuild Service Connection.
           outputs:
           - output: pipelineArtifact
             displayName: 'Publish Artifact: ESRP signing logs'
