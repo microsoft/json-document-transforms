@@ -42,11 +42,9 @@ extends:
     sdl:
       sourceAnalysisPool:
         name: VSEngSS-MicroBuild2022-1ES
-        image: server2022-microbuildVS2022-1es
 
     pool:
       name: VSEngSS-MicroBuild2022-1ES
-      image: server2022-microbuildVS2022-1es
       os: windows
     customBuildTags:
     - ES365AIMigrationTooling
