@@ -209,7 +209,7 @@ extends:
             toolVersion: 'Latest'
           condition: and(succeeded(), eq(variables['RunApiScan'], 'true'))
           env:
-            AzureServicesAuthConnectionString: runAs=App;AppId=$(ApiScanClientId);TenantId=$(ApiScanTenant);AppKey=$(ApiScanSecret)
+            AzureServicesAuthConnectionString: RunAs=App;AppId=$(ApiScanClientId)
         - task: PublishSecurityAnalysisLogs@3
           displayName: 'Publish Guardian Artifacts'
           inputs:
