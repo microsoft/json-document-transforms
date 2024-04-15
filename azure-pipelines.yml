@@ -237,11 +237,15 @@ extends:
             SymbolsFolder: $(Build.ArtifactStagingDirectory)/symbols
             SearchPattern: '**\*.pdb'
             SymbolServerType: TeamServices
-            ArtifactServices.Symbol.AccountName: microsoft
-            ArtifactServices.Symbol.PAT: $(System.AccessToken)
-            ArtifactServices.Symbol.UseAAD: false
           displayName: Archive symbols to VSTS
           condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq(variables['SignType'], 'real'))
+          
+        - task: MicroBuildArchiveSymbols@5
+          displayName: 🔣 Archive symbols to Symweb
+          inputs:
+            SymbolsFeatureName: $(SymbolsFeatureName)
+            SymbolsProject: VS
+
         - task: CopyFiles@1
           displayName: Collecting packages
           inputs:
