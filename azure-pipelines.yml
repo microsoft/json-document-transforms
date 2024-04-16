@@ -237,6 +237,8 @@ extends:
             SymbolsFolder: $(Build.ArtifactStagingDirectory)/symbols
             SearchPattern: '**\*.pdb'
             SymbolServerType: TeamServices
+            IndexSources: false
+            PublishSymbols: false
           displayName: Archive symbols to VSTS
           condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq(variables['SignType'], 'real'))
           
