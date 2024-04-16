@@ -232,21 +232,14 @@ extends:
               !**/*Test*
             TargetFolder: $(Build.ArtifactStagingDirectory)/symbols
           condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
-        - task: PublishSymbols@2
-          inputs:
-            SymbolsFolder: $(Build.ArtifactStagingDirectory)/symbols
-            SearchPattern: '**\*.pdb'
-            SymbolServerType: TeamServices
-            PublishSymbols: false
-          displayName: Archive symbols to VSTS
-          condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq(variables['SignType'], 'real'))
-          
+
         - task: MicroBuildArchiveSymbols@5
           displayName: 🔣 Archive symbols to Symweb
           inputs:
             SymbolsFeatureName: $(SymbolsFeatureName)
             SymbolsProject: VS
           condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq(variables['SignType'], 'real'))
+
 
         - task: CopyFiles@1
           displayName: Collecting packages
