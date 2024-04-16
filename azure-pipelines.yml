@@ -245,6 +245,7 @@ extends:
           inputs:
             SymbolsFeatureName: $(SymbolsFeatureName)
             SymbolsProject: VS
+          condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq(variables['SignType'], 'real'))
 
         - task: CopyFiles@1
           displayName: Collecting packages
