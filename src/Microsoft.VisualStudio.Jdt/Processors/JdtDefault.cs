@@ -6,12 +6,21 @@ namespace Microsoft.VisualStudio.Jdt
     using Newtonsoft.Json.Linq;
     using System;
     using System.Linq;
+    using System.Xml.Linq;
 
     /// <summary>
     /// Represents the default JDT transformation.
     /// </summary>
     internal class JdtDefault : JdtProcessor
     {
+        private DefaultMode mode = DefaultMode.Merge;
+
+        private enum DefaultMode
+        {
+            Merge,
+            Replace,
+        }
+
         /// <inheritdoc/>
         public override string Verb { get; } = null;
 
@@ -41,8 +50,15 @@ namespace Microsoft.VisualStudio.Jdt
                         // If both are objects, that is a recursive transformation, not handled here
                         if (nodeToTransform.Type == JTokenType.Array && transformNode.Value.Type == JTokenType.Array)
                         {
-                            // If the original and transform are arrays, merge the contents together
-                            ((JArray)nodeToTransform).Merge(transformNode.Value.DeepClone());
+                            // If the original and transform are arrays, merge or replace the contents, depending on current mode
+                            if (this.mode == DefaultMode.Merge)
+                            {
+                                ((JArray)nodeToTransform).Merge(transformNode.Value.DeepClone());
+                            }
+                            else
+                            {
+                                ((JArray)nodeToTransform).Replace(transformNode.Value.DeepClone());
+                            }
                         }
                         else if (nodeToTransform.Type != JTokenType.Object || transformNode.Value.Type != JTokenType.Object)
                         {
@@ -53,6 +69,23 @@ namespace Microsoft.VisualStudio.Jdt
                     }
                     else
                     {
+                        var shouldResetMode = this.mode == DefaultMode.Merge;
+                        if (shouldResetMode)
+                        {
+                            // While doing default transformation on an object, switch to replace by default
+                            // This works as expected as long as a single level of JDT Verbs is used (more are unsupported anyway)
+                            this.mode = DefaultMode.Replace;
+                        }
+
+                        // If the tranform node is an object, cleaning it and transforming it on itself resolves all remaining JDT Verbs
+                        // Otherwise JDT Verbs would polute the source object
+                        this.ProcessTransformAndCleanJdtProperties(transformNode.Value, logger);
+
+                        if (shouldResetMode)
+                        {
+                            this.mode = DefaultMode.Merge;
+                        }
+
                         // If the node is not present in the original, add it
                         ((JObject)source).Add(transformNode.DeepClone());
                     }
@@ -64,6 +97,42 @@ namespace Microsoft.VisualStudio.Jdt
             }
 
             this.Successor.Process(source, transform, logger);
+        }
+
+        /// <summary>
+        /// Cleans JDT Value properties and processes itself as a transform.
+        /// </summary>
+        /// <param name="token">JObject or JArray.</param>
+        /// <param name="logger">Logger.</param>
+        /// <returns>The same reference.</returns>
+        private JToken ProcessTransformAndCleanJdtProperties(JToken token, JsonTransformationContextLogger logger)
+        {
+            if (token.Type == JTokenType.Array)
+            {
+                foreach (var item in ((JArray)token).Children())
+                {
+                    this.ProcessTransformAndCleanJdtProperties(item, logger);
+                }
+            }
+            else if (token.Type == JTokenType.Object)
+            {
+                var jObject = (JObject)token;
+                var selfTransform = (JObject)jObject.DeepClone();
+                foreach (JProperty node in jObject.Properties()
+                    .Where(p => JdtUtilities.IsJdtSyntax(p.Name)).ToArray())
+                {
+                    jObject.Remove(node.Name);
+                }
+
+                ProcessTransform(token, selfTransform, logger);
+
+                foreach (JProperty node in jObject.Properties().ToArray())
+                {
+                    this.ProcessTransformAndCleanJdtProperties(node.Value, logger);
+                }
+            }
+
+            return token;
         }
     }
 }

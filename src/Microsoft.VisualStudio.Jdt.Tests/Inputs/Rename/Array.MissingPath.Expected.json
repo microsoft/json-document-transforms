@@ -5,10 +5,11 @@
     { "Index": 3 }
   ],
   "B": [
-    { "Rename": true, "Changed": 1 },
+    { "Rename": true, "ToChange": 1 },
     { "Rename": false, "ToChange": 1 },
     { "Rename": "WrongValue", "ToChange": 1 },
     { "HasRename": false, "ToChange": 1 },
-    { "Rename": true, "Changed": 1 }
-  ]
+    { "Rename": true, "ToChange": 1 }
+  ],
+  "C": {}
 }

@@ -1,12 +1,12 @@
 ﻿{
   //Remove only matching nodes from this level
   "@jdt.remove": {
-    "@jdt.path": "$[?(@.RemoveThis == true)]"
+    "@jdt.path": "A"
   },
   "C": {
     //Specify a relative path to the node
     "@jdt.remove": {
-      "@jdt.path": "@.C2.C21"
+      "@jdt.path": "C2.C21"
     }
   }
 }

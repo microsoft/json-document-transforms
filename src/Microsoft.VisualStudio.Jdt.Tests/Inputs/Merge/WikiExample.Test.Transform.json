@@ -2,14 +2,14 @@
   //Executes for all nodes on this level
   "@jdt.merge": [
     {
-      "@jdt.path": "$.*",
+      "@jdt.path": "*",
       "@jdt.value": {
         "Default": 0
       }
     },
     //This only executes for matching nodes
     {
-      "@jdt.path": "$[?(@.TransformThis == true)]",
+      "@jdt.path": "A",
       "@jdt.value": {
         "Transformed": true
       }
@@ -18,7 +18,7 @@
   "E": {
     // Accessing objects in array
     "@jdt.merge": {
-      "@jdt.path": "$.Items[?(@.Value < 15)]",
+      "@jdt.path": "Items[?(@.Value < 15)]",
       "@jdt.value": {
         "Value": 15,
         "Changed": true

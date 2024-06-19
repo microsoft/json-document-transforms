@@ -5,7 +5,7 @@
   },
   "B": {
     "@jdt.replace": {
-      "@jdt.path": "@[?(@.ReplaceThis == true)]",
+      "@jdt.path": "[?(@.ReplaceThis == true)]",
       "@jdt.value": {
         "Replaced": true
       }
