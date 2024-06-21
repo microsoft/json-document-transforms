@@ -37,15 +37,49 @@ namespace Microsoft.VisualStudio.Jdt
         }
 
         /// <summary>
+        /// Wheter the given key corresponds to a JDT verb using inline form (e.g.: "key@jdt.replace").
+        /// </summary>
+        /// <param name="key">The JSON key to analyze.</param>
+        /// <returns>True if the key corresponds to a verb.</returns>
+        public static bool IsJdtInlineSyntax(string key)
+        {
+            // If the key is empty of does not start with the correct prefix,
+            // it is not a valid verb
+            return !string.IsNullOrEmpty(key) && !key.StartsWith(JdtSyntaxPrefix) && key.Contains(JdtSyntaxPrefix);
+        }
+
+        /// <summary>
         /// Gets the JDT syntax in the key.
         /// </summary>
         /// <param name="key">The JDT key, in the correct syntax.</param>
         /// <returns>The string property. Null if the property does is not JDT syntax.</returns>
         public static string GetJdtSyntax(string key)
         {
-            // If the key does not start with the correct prefix, it is not a JDT verb
+            // If the key does not start with or caontain the correct prefix, it is not a JDT verb
             // If it is a JDT verb, remove the prefix
             return IsJdtSyntax(key) ? key.Substring(JdtSyntaxPrefix.Length) : null;
+        }
+
+        /// <summary>
+        /// Gets the JDT inline syntax in the key.
+        /// </summary>
+        /// <param name="key">The JDT key, in the correct syntax.</param>
+        /// <returns>The string property. Null if the property does is not JDT syntax.</returns>
+        public static string GetJdtInlineSyntax(string key)
+        {
+            // If the key does not start with or caontain the correct prefix, it is not a JDT verb
+            // If it is a JDT verb, remove the prefix
+            return IsJdtInlineSyntax(key) ? key.Substring(key.IndexOf(JdtSyntaxPrefix) + JdtSyntaxPrefix.Length) : null;
+        }
+
+        /// <summary>
+        /// Gets the key, stripping any JDT syntax.
+        /// </summary>
+        /// <param name="key">The JDT key, in the correct syntax.</param>
+        /// <returns>The string property.</returns>
+        public static string GetJdtInlineKey(string key)
+        {
+            return IsJdtInlineSyntax(key) ? key.Substring(0, key.IndexOf(JdtSyntaxPrefix)) : null;
         }
 
         /// <summary>

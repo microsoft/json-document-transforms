@@ -23,6 +23,11 @@ namespace Microsoft.VisualStudio.Jdt
         public abstract string Verb { get; }
 
         /// <summary>
+        /// Gets a value indicating whether this processor can be exapnded from simplified form.
+        /// </summary>
+        public abstract bool Expandable { get; }
+
+        /// <summary>
         /// Gets the full verb corresponding the to the transformation.
         /// </summary>
         protected string FullVerb

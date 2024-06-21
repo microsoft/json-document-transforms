@@ -3,26 +3,23 @@
 
 namespace Microsoft.VisualStudio.Jdt
 {
-    using Newtonsoft.Json.Linq;
     using System;
     using System.Linq;
     using System.Xml.Linq;
+    using Newtonsoft.Json.Linq;
 
     /// <summary>
     /// Represents the default JDT transformation.
     /// </summary>
     internal class JdtDefault : JdtProcessor
     {
-        private DefaultMode mode = DefaultMode.Merge;
-
-        private enum DefaultMode
-        {
-            Merge,
-            Replace,
-        }
+        private JdtDefaultTransform defaultTransform = JdtDefaultTransform.Merge;
 
         /// <inheritdoc/>
         public override string Verb { get; } = null;
+
+        /// <inheritdoc/>
+        public override bool Expandable { get; } = false;
 
         /// <inheritdoc/>
         internal override void Process(JToken source, JObject transform, JsonTransformationContextLogger logger)
@@ -51,7 +48,7 @@ namespace Microsoft.VisualStudio.Jdt
                         if (nodeToTransform.Type == JTokenType.Array && transformNode.Value.Type == JTokenType.Array)
                         {
                             // If the original and transform are arrays, merge or replace the contents, depending on current mode
-                            if (this.mode == DefaultMode.Merge)
+                            if (this.defaultTransform == JdtDefaultTransform.Merge)
                             {
                                 ((JArray)nodeToTransform).Merge(transformNode.Value.DeepClone());
                             }
@@ -62,19 +59,18 @@ namespace Microsoft.VisualStudio.Jdt
                         }
                         else if (nodeToTransform.Type != JTokenType.Object || transformNode.Value.Type != JTokenType.Object)
                         {
-                            // TO DO: Verify if object has JDT verbs. They shouldn't be allowed here because they won't be processed
-                            // If the contents are different, execute the replace
+                            // For non-arrays and non-objects, just replace them
                             source[transformNode.Name] = transformNode.Value.DeepClone();
                         }
                     }
                     else
                     {
-                        var shouldResetMode = this.mode == DefaultMode.Merge;
+                        var shouldResetMode = this.defaultTransform == JdtDefaultTransform.Merge;
                         if (shouldResetMode)
                         {
                             // While doing default transformation on an object, switch to replace by default
                             // This works as expected as long as a single level of JDT Verbs is used (more are unsupported anyway)
-                            this.mode = DefaultMode.Replace;
+                            this.defaultTransform = JdtDefaultTransform.Replace;
                         }
 
                         // If the tranform node is an object, cleaning it and transforming it on itself resolves all remaining JDT Verbs
@@ -83,7 +79,7 @@ namespace Microsoft.VisualStudio.Jdt
 
                         if (shouldResetMode)
                         {
-                            this.mode = DefaultMode.Merge;
+                            this.defaultTransform = JdtDefaultTransform.Merge;
                         }
 
                         // If the node is not present in the original, add it
@@ -118,10 +114,19 @@ namespace Microsoft.VisualStudio.Jdt
             {
                 var jObject = (JObject)token;
                 var selfTransform = (JObject)jObject.DeepClone();
-                foreach (JProperty node in jObject.Properties()
-                    .Where(p => JdtUtilities.IsJdtSyntax(p.Name)).ToArray())
+                foreach (JProperty node in jObject.Properties().ToArray())
                 {
-                    jObject.Remove(node.Name);
+                    if (JdtUtilities.IsJdtSyntax(node.Name))
+                    {
+                        // Rename any JDT verb nodes
+                        jObject.Remove(node.Name);
+                    }
+                    else if (JdtUtilities.IsJdtInlineSyntax(node.Name))
+                    {
+                        // Rename any JDT inline verb nodes and replace them with empty JObjects
+                        // As JDT inline verbs are supported in merge or replace, this is sufficient
+                        node.Replace(new JProperty(JdtUtilities.GetJdtInlineKey(node.Name), new JObject()));
+                    }
                 }
 
                 ProcessTransform(token, selfTransform, logger);

@@ -26,6 +26,9 @@ namespace Microsoft.VisualStudio.Jdt
         public override string Verb { get; } = "merge";
 
         /// <inheritdoc/>
+        public override bool Expandable { get; } = true;
+
+        /// <inheritdoc/>
         protected override bool ProcessCore(JToken source, JToken transformValue, JsonTransformationContextLogger logger)
         {
             if (source.Type == JTokenType.Object && transformValue.Type == JTokenType.Object)

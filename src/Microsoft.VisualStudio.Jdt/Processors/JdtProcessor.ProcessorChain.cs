@@ -30,10 +30,14 @@ namespace Microsoft.VisualStudio.Jdt
 
             public JdtProcessorChain()
             {
+                var expander = new JdtExpander();
                 var validator = new JdtValidator();
 
-                // The first step of a transformation is validating the verbs
-                this.processors.Insert(0, validator);
+                // The first step of a transformation is expanding simplified verbs
+                this.processors.Insert(0, expander);
+
+                // The second step of a transformation is validating the verbs
+                this.processors.Insert(1, validator);
 
                 // The successor of each transform processor should be the next one on the list
                 // The last processor defaults to the end of chain processor
@@ -46,6 +50,13 @@ namespace Microsoft.VisualStudio.Jdt
                         // If the transformation has a corresponding verb,
                         // add it to the list of verbs to be validated
                         validator.ValidVerbs.Add(successor.Verb);
+
+                        if (successor.Expandable)
+                        {
+                            // If the transformation is exapandable,
+                            // add it to the expander valid verbs
+                            expander.ValidVerbs.Add(successor.Verb);
+                        }
                     }
 
                     processorsEnumerator.Current.Successor = successor;
@@ -81,6 +92,9 @@ namespace Microsoft.VisualStudio.Jdt
             public static JdtEndOfChain Instance { get; } = new JdtEndOfChain();
 
             public override string Verb { get; } = null;
+
+            /// <inheritdoc/>
+            public override bool Expandable { get; } = false;
 
             internal override void Process(JToken source, JObject transform, JsonTransformationContextLogger logger)
             {

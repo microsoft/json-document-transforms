@@ -17,6 +17,9 @@ namespace Microsoft.VisualStudio.Jdt
         public override string Verb { get; } = null;
 
         /// <inheritdoc/>
+        public override bool Expandable { get; } = false;
+
+        /// <inheritdoc/>
         internal override void Process(JToken source, JObject transform, JsonTransformationContextLogger logger)
         {
             if (source == null)

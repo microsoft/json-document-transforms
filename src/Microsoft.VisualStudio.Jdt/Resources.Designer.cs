@@ -20,7 +20,7 @@ namespace Microsoft.VisualStudio.Jdt {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -94,6 +94,15 @@ namespace Microsoft.VisualStudio.Jdt {
         internal static string ErrorMessage_InvalidAttributes {
             get {
                 return ResourceManager.GetString("ErrorMessage_InvalidAttributes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} is not a valid JDT inline verb.
+        /// </summary>
+        internal static string ErrorMessage_InvalidInlineVerb {
+            get {
+                return ResourceManager.GetString("ErrorMessage_InvalidInlineVerb", resourceCulture);
             }
         }
         
