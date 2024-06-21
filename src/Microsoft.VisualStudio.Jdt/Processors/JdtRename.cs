@@ -26,7 +26,10 @@ namespace Microsoft.VisualStudio.Jdt
         public override string Verb { get; } = "rename";
 
         /// <inheritdoc/>
-        protected override bool ProcessCore(JObject source, JToken transformValue, JsonTransformationContextLogger logger)
+        public override bool Expandable { get; } = false;
+
+        /// <inheritdoc/>
+        protected override bool ProcessCore(JToken source, JToken transformValue, JsonTransformationContextLogger logger)
         {
             if (transformValue.Type != JTokenType.Object)
             {
@@ -90,7 +93,7 @@ namespace Microsoft.VisualStudio.Jdt
 
                         // TO DO: Warning if the node is not found
                         JToken nodeToRename;
-                        if (source.TryGetValue(renameOperation.Name, out nodeToRename))
+                        if (source.Type == JTokenType.Object && ((JObject)source).TryGetValue(renameOperation.Name, out nodeToRename))
                         {
                             if (!this.RenameNode(nodeToRename, renameOperation.Value.ToString()))
                             {

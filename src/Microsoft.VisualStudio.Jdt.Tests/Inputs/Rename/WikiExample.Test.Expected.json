@@ -1,0 +1,17 @@
+﻿{
+  // Does not alter result
+  "Astar": {
+    "A1": 11,
+    "A2": {
+      "A21": 121,
+      "A22": 122
+    }
+  },
+  // Does not depend  on object type
+  "Bstar": [
+    21,
+    22
+  ],
+  // Does not alter siblings
+  "C": 3
+}

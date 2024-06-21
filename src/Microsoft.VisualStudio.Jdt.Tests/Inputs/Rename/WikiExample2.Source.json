@@ -1,0 +1,18 @@
+﻿{
+  "A": {
+    "RenameThis": true
+  },
+  "B": {
+    "RenameThis": false
+  },
+  "C": [
+    {
+      "Name": "C01",
+      "Value": 1
+    },
+    {
+      "Name": "C02",
+      "Value": 2
+    }
+  ]
+}

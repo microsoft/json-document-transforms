@@ -17,7 +17,10 @@ namespace Microsoft.VisualStudio.Jdt
         public override string Verb { get; } = null;
 
         /// <inheritdoc/>
-        internal override void Process(JObject source, JObject transform, JsonTransformationContextLogger logger)
+        public override bool Expandable { get; } = false;
+
+        /// <inheritdoc/>
+        internal override void Process(JToken source, JObject transform, JsonTransformationContextLogger logger)
         {
             if (source == null)
             {
@@ -37,9 +40,10 @@ namespace Microsoft.VisualStudio.Jdt
             {
                 // We recurse into objects that do not correspond to JDT verbs and that exist in both source and transform
                 JToken sourceChild;
-                if (source.TryGetValue(transformNode.Name, out sourceChild) && sourceChild.Type == JTokenType.Object)
+                if (source.Type == JTokenType.Object && ((JObject)source).TryGetValue(transformNode.Name, out sourceChild)
+                    && (sourceChild.Type == JTokenType.Object || sourceChild.Type == JTokenType.Array))
                 {
-                    ProcessTransform((JObject)sourceChild, (JObject)transformNode.Value, logger);
+                    ProcessTransform(sourceChild, (JObject)transformNode.Value, logger);
 
                     // If we have already recursed into that node, it should be removed from the transform
                     nodesToRemove.Add(transformNode.Name);

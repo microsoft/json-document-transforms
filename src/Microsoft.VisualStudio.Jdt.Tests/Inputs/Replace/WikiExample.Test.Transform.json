@@ -1,0 +1,25 @@
+﻿{
+  "A": {
+    "@jdt.replace": 1
+  },
+  "B": {
+    "@jdt.replace": {
+      "B1": 11,
+      "B2": 12
+    }
+  },
+  "C": {
+    // Double brackets are needed to specify
+    // the array as the transformation value
+    "@jdt.replace": [
+      [
+        {
+          "Value": 31
+        },
+        {
+          "Value": 32
+        }
+      ]
+    ]
+  }
+}

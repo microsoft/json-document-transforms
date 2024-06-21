@@ -12,7 +12,7 @@ namespace Microsoft.VisualStudio.Jdt
     internal abstract class JdtArrayProcessor : JdtProcessor
     {
         /// <inheritdoc/>
-        internal override void Process(JObject source, JObject transform, JsonTransformationContextLogger logger)
+        internal override void Process(JToken source, JObject transform, JsonTransformationContextLogger logger)
         {
             if (source == null)
             {
@@ -45,7 +45,7 @@ namespace Microsoft.VisualStudio.Jdt
         /// <param name="transformValue">Value of the transform.</param>
         /// <param name="logger">The transformation context logger.</param>
         /// <returns>True if transforms should continue.</returns>
-        protected abstract bool ProcessCore(JObject source, JToken transformValue, JsonTransformationContextLogger logger);
+        protected abstract bool ProcessCore(JToken source, JToken transformValue, JsonTransformationContextLogger logger);
 
         /// <summary>
         /// Performs the initial logic of processing arrays.
@@ -55,7 +55,7 @@ namespace Microsoft.VisualStudio.Jdt
         /// <param name="transformValue">Value of the transform.</param>
         /// <param name="logger">The transformation context logger.</param>
         /// <returns>True if transforms should continue.</returns>
-        private bool Transform(JObject source, JToken transformValue, JsonTransformationContextLogger logger)
+        private bool Transform(JToken source, JToken transformValue, JsonTransformationContextLogger logger)
         {
             if (transformValue.Type == JTokenType.Array)
             {

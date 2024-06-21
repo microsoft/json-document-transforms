@@ -1,0 +1,11 @@
+﻿{
+  // Astar is completely removed
+  "A": 1,
+  "B": 2,
+  // All nodes are removed
+  "C": null,
+  "D": {
+    "D1": 41
+    // Multiple nodes were removed
+  }
+}

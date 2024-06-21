@@ -6,12 +6,13 @@ namespace Microsoft.VisualStudio.Jdt
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Xml.Linq;
     using Newtonsoft.Json.Linq;
 
     /// <summary>
-    /// Validates the JDT verbs in the transformation.
+    /// Expands the simplified inline JDT verbs in the transformation.
     /// </summary>
-    internal class JdtValidator : JdtProcessor
+    internal class JdtExpander : JdtProcessor
     {
         /// <summary>
         /// Gets set of the valid verbs for the transformation.
@@ -38,15 +39,22 @@ namespace Microsoft.VisualStudio.Jdt
             }
 
             foreach (JProperty transformNode in transform.Properties()
-                .Where(p => JdtUtilities.IsJdtSyntax(p.Name)))
+                .Where(p => JdtUtilities.IsJdtInlineSyntax(p.Name)).ToList())
             {
-                string verb = JdtUtilities.GetJdtSyntax(transformNode.Name);
+                string verb = JdtUtilities.GetJdtInlineSyntax(transformNode.Name);
                 if (verb != null)
                 {
                     if (!this.ValidVerbs.Contains(verb))
                     {
-                        throw JdtException.FromLineInfo(string.Format(Resources.ErrorMessage_InvalidVerb, verb), ErrorLocation.Transform, transformNode);
+                        throw JdtException.FromLineInfo(string.Format(Resources.ErrorMessage_InvalidInlineVerb, verb), ErrorLocation.Transform, transformNode);
                     }
+
+                    var newValue = new JObject(
+                        new JProperty(
+                            JdtUtilities.JdtSyntaxPrefix + verb,
+                            new JArray(transformNode.Value)));
+
+                    transformNode.Replace(new JProperty(JdtUtilities.GetJdtInlineKey(transformNode.Name), newValue));
                 }
             }
 

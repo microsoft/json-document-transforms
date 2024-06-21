@@ -1,0 +1,14 @@
+﻿{
+  "A": {
+    "A1": 11,
+    "A2": "Replace"
+  },
+  "B": [
+    {
+      "ReplaceThis": true
+    },
+    {
+      "ReplaceThis": false
+    }
+  ]
+}

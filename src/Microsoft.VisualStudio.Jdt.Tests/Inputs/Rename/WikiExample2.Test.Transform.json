@@ -1,0 +1,12 @@
+﻿{
+  "@jdt.rename": {
+    "@jdt.path": "A",
+    "@jdt.value": "Astar"
+  },
+  "C": {
+    "@jdt.rename": {
+      "@jdt.path": "[*].Name",
+      "@jdt.value": "Nstar"
+    }
+  }
+}

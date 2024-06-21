@@ -1,0 +1,34 @@
+﻿{
+  "A": {
+    "TransformThis": true,
+    "Default": 0,
+    "Transformed": true
+  },
+  "B": {
+    "TransformThis": false,
+    "Default": 0
+  },
+  "C": {
+    "Default": 0
+  },
+  "D": {
+    "TransformThis": "WrongValue",
+    "Default": 0
+  },
+  "E": {
+    "TransformThis": false,
+    "Items": [
+      {
+        "Value": 15,
+        "Changed": true
+      },
+      {
+        "Value": 20
+      },
+      {
+        "Value": 30
+      }
+    ],
+    "Default": 0
+  }
+}

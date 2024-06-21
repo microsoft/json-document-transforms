@@ -1,0 +1,21 @@
+﻿{
+  // Only this node matches the path
+  "Astar": {
+    "RenameThis": true
+  },
+  "B": {
+    "RenameThis": false
+  },
+  // Renaming nodes from an object 
+  // in the array is allowed
+  "C": [
+    {
+      "Nstar": "C01",
+      "Value": 1
+    },
+    {
+      "Nstar": "C02",
+      "Value": 2
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+﻿{
+  "@jdt.remove": "Astar",
+  "C": {
+    "@jdt.remove": true
+  },
+  "D": {
+    "@jdt.remove": [ "D2", "D3" ]
+  }
+}
