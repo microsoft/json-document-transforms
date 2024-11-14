@@ -1,252 +1,36 @@
 trigger:
+  batch: true
   branches:
     include:
     - main
+    - 'validate/*'
   paths:
     exclude:
-    - .github
-    - doc
+    - doc/
     - '*.md'
-schedules:
-- cron: "0 10 * * Sun"
-  displayName: Weekly api-scan
-  always: true
-  branches:
-    include:
-    - main
+    - .vscode/
+    - .github/
+    - azure-pipelines/release.yml
+
 parameters:
-- name: RunApiScanTools
-  displayName: Run API Scan?
+- name: includeMacOS
+  displayName: Build on macOS
   type: boolean
-  default: false
+  default: false # macOS is often bogged down in Azure Pipelines
+- name: RunTests
+  displayName: Run tests
+  type: boolean
+  default: true
+
 variables:
-  NugetSecurityAnalysisWarningLevel: none
-  ${{ if or(eq(parameters.RunApiScanTools, 'true'), eq(variables['Build.CronSchedule.DisplayName'], 'Weekly api-scan')) }}:
-    RunAPIScan: true
-  ${{ else }}:
-    RunAPIScan: false
-  Codeql.Enabled: true
-  Codeql.TSAEnabled: true
-  Codeql.TSAOptionsPath: $(Build.SourcesDirectory)\azure-pipelines\TSAOptions.json
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  BuildConfiguration: Release
+  codecov_token: 4dc9e7e2-6b01-4932-a180-847b52b43d35 # Get a new one from https://codecov.io/
+  ci_feed: https://pkgs.dev.azure.com/andrewarnott/_packaging/CI/nuget/v3/index.json # Azure Artifacts feed URL
+  NUGET_PACKAGES: $(Agent.TempDirectory)/.nuget/packages/
 
-resources:
-  repositories:
-  - repository: MicroBuildTemplate
-    type: git
-    name: 1ESPipelineTemplates/MicroBuildTemplate
-    ref: refs/tags/release
-
-extends:
-  template: azure-pipelines/MicroBuild.1ES.Official.yml@MicroBuildTemplate
+jobs:
+- template: azure-pipelines/build.yml
   parameters:
-    sdl:
-      sourceAnalysisPool:
-        name: VSEngSS-MicroBuild2022-1ES
-        image: server2022-microbuildVS2022-1es
-
-    pool:
-      name: VSEngSS-MicroBuild2022-1ES
-      image: server2022-microbuildVS2022-1es
-      os: windows
-    customBuildTags:
-    - ES365AIMigrationTooling
-    stages:
-    - stage: stage
-      jobs:
-      - job: job
-        templateContext:
-          mb:
-            signing:
-              enabled: true
-              signType: $(SignType)
-              zipSources: false
-              feedSource: 'https://pkgs.dev.azure.com/devdiv/_packaging/MicroBuildToolset/nuget/v3/index.json' # Optional parameter: Artifact feed for outside DevDiv.
-              azureSubscription: 'MicroBuild Signing Task (DevDiv)' # Optional parameter: Microbuild Service Connection.
-          outputs:
-          # - output: pipelineArtifact
-          #   displayName: 'Publish Artifact: ESRP signing logs'
-          #   condition: eq(variables['SignType'], 'real')
-          #   targetPath: $(Build.ArtifactStagingDirectory)/MicroBuild/ESRPClient
-          #   artifactName: esrpclient_logs
-          #   artifactType: Container
-          - output: pipelineArtifact
-            displayName: 'Publish Artifact: build logs'
-            condition: succeededOrFailed()
-            targetPath: $(Build.ArtifactStagingDirectory)/build_logs
-            artifactName: build_logs
-            artifactType: Container
-          - output: pipelineArtifact
-            displayName: 'Publish Artifact: symbols'
-            condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
-            targetPath: '$(Build.ArtifactStagingDirectory)/symbols'
-            artifactName: symbols
-            publishLocation: Container
-          - output: pipelineArtifact
-            displayName: 'Publish packages'
-            condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
-            targetPath: $(Build.ArtifactStagingDirectory)/packages
-            artifactName: packages
-            artifactType: Container
-          - output: nuget
-            displayName: 'Publish Sdk NuGet packages to VSTS feeds'
-            condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
-            packageParentPath: '$(Build.ArtifactStagingDirectory)'
-            searchPatternPush: 'bin/$(BuildConfiguration)/packages/*.nupkg'
-            publishVstsFeed: $(feedGuid)
-            allowPackageConflicts: true
-        steps:
-        - checkout: self
-          fetchDepth: 0
-        - task: ComponentGovernanceComponentDetection@0
-          inputs:
-            scanType: 'Register'
-            verbosity: 'Verbose'
-            alertWarningLevel: 'High'
-        - task: PowerShell@2
-          displayName: Set VSTS variables
-          inputs:
-            targetType: inline
-            script: |
-              if ($env:SignType -eq 'Real') {
-                $feedGuid = '09d8d03c-1ac8-456e-9274-4d2364527d99' ## VSIDE-RealSigned-Release
-              } else {
-                $feedGuid = 'da484c78-f942-44ef-b197-99e2a1bef53c' ## VSIDE-TestSigned-Release
-              }
-              Write-Host "##vso[task.setvariable variable=feedGuid]$feedGuid"
-              $SkipPublishingNetworkArtifacts = 'true' ## Network artifacts not allowed on Scale Set Pool
-              Write-Host "##vso[task.setvariable variable=SkipPublishingNetworkArtifacts]$SkipPublishingNetworkArtifacts"
-              if ($env:ComputerName.StartsWith('factoryvm', [StringComparison]::OrdinalIgnoreCase)) {
-                Write-Host "Running on hosted queue"
-                Write-Host "##vso[task.setvariable variable=Hosted]true"
-              }
-        - task: CmdLine@2
-          inputs:
-            script: |
-              del /s /q "bin"
-          displayName: Purge bin
-        - task: NuGetToolInstaller@0
-          displayName: Pin nuget.exe version
-          inputs:
-            versionSpec: 6.4.0
-        - task: NuGetAuthenticate@1
-          displayName: 'NuGet Authenticate'
-          inputs:
-            forceReinstallCredentialProvider: true
-        - task: VSBuild@1
-          inputs:
-            vsVersion: 15.0
-            solution: 'src\jdt.sln'
-            msbuildArgs: /t:Restore
-            platform: $(BuildPlatform)
-            configuration: $(BuildConfiguration)
-          displayName: Restore jdt solution
-        - task: VSBuild@1
-          inputs:
-            vsVersion: 15.0
-            solution: 'src\jdt.sln'
-            msbuildArgs: '/bl:"$(Build.ArtifactStagingDirectory)/build_logs/jdt.binlog"'
-            platform: $(BuildPlatform)
-            configuration: $(BuildConfiguration)
-          displayName: Build jdt solution
-        - task: MicroBuildCodesignVerify@3
-          inputs:
-            TargetFolders: |
-              $(Build.SourcesDirectory)\bin\$(BuildConfiguration)\packages
-            ApprovalListPathForCerts: $(Build.SourcesDirectory)\src\build\no_authenticode.txt
-            ApprovalListPathForSigs: $(Build.SourcesDirectory)\src\build\no_strongname.txt
-          displayName: Verify code signing
-          condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
-        - task: VSTest@2
-          inputs:
-            testFiltercriteria: TestCategory!=FailsInCloudTest
-            searchFolder: $(System.DefaultWorkingDirectory)\bin\
-            testAssemblyVer2: |
-              $(BuildConfiguration)\**\net472\*test*.dll
-              !**\obj\**
-            platform: $(BuildPlatform)
-            configuration: $(BuildConfiguration)
-            diagnosticsEnabled: true
-          displayName: Run Tests
-          condition: and(succeeded(), ne(variables['SignType'], 'real'))
-        - task: AntiMalware@4
-          displayName: 'Run MpCmdRun.exe'
-          inputs:
-            InputType: Basic
-            ScanType: CustomScan
-            FileDirPath: '$(Build.StagingDirectory)'
-            DisableRemediation: false
-        - task: PoliCheck@2
-          displayName: 'Run PoliCheck'
-          inputs:
-            targetType: F
-          condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
-        - task: ManifestGeneratorTask@0
-          inputs:
-            BuildDropPath: $(Build.ArtifactStagingDirectory)/build_logs
-        - task: BinSkim@4
-          displayName: Run BinSkim
-          inputs:
-            InputType: 'Basic'
-            Function: 'analyze'
-            TargetPattern: 'guardianGlob'
-            AnalyzeTargetGlob: 'bin/$(BuildConfiguration)/net472/Microsoft.VisualStudio.Jdt*.dll;'
-        - task: CopyFiles@2
-          displayName: 'Copy Files for APIScan'
-          inputs:
-            SourceFolder: 'bin/$(BuildConfiguration)/net472/'
-            Contents: |
-              **/Microsoft.VisualStudio.Jdt*.dll
-              **/Microsoft.VisualStudio.Jdt*.pdb
-            TargetFolder: $(Agent.TempDirectory)\APIScanFiles
-          condition: and(succeeded(), eq(variables['RunApiScan'], 'true'))
-        - task: APIScan@2
-          displayName: Run APIScan
-          inputs:
-            softwareFolder: $(Agent.TempDirectory)\APIScanFiles
-            softwareName: 'json-document-transform'
-            softwareVersionNum: '$(Build.BuildId)'
-            isLargeApp: false
-            toolVersion: 'Latest'
-          condition: and(succeeded(), eq(variables['RunApiScan'], 'true'))
-          env:
-            AzureServicesAuthConnectionString: RunAs=App;AppId=$(ApiScanClientId)
-        - task: PublishSecurityAnalysisLogs@3
-          displayName: 'Publish Guardian Artifacts'
-          inputs:
-            ArtifactName: CodeAnalysisLogs
-            ArtifactType: Container
-            PublishProcessedResults: false
-            AllTools: true
-        - task: TSAUpload@2
-          displayName: 'Create bugs for APIScan'
-          inputs:
-            GdnPublishTsaOnboard: true
-            GdnPublishTsaConfigFile: '$(Build.SourcesDirectory)\azure-pipelines\TSAOptions.json'
-          condition: eq(variables['RunApiScan'], 'true')
-        - task: CopyFiles@1
-          displayName: Collecting symbols artifacts
-          inputs:
-            SourceFolder: bin/$(BuildConfiguration)/net472
-            Contents: |
-              **/Microsoft.VisualStudio.Jdt?(*.dll|*.pdb|*.xml)
-              !**/*Test*
-            TargetFolder: $(Build.ArtifactStagingDirectory)/symbols
-          condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
-
-        - task: MicroBuildArchiveSymbols@5
-          displayName: 🔣 Archive symbols to Symweb
-          inputs:
-            SymbolsFeatureName: $(SymbolsFeatureName)
-            SymbolsProject: VS
-          condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq(variables['SignType'], 'real'))
-
-
-        - task: CopyFiles@1
-          displayName: Collecting packages
-          inputs:
-            SourceFolder: bin/$(BuildConfiguration)/packages
-            Contents: |
-              *.nupkg
-            TargetFolder: $(Build.ArtifactStagingDirectory)/packages
-            flattenFolders: false
-          condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    includeMacOS: ${{ parameters.includeMacOS }}
+    RunTests: ${{ parameters.RunTests }}
