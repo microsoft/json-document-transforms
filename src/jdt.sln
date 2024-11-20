@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35505.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.VisualStudio.Jdt", "Microsoft.VisualStudio.Jdt\Microsoft.VisualStudio.Jdt.csproj", "{E4517B62-6E49-47A9-93A3-889B2E0A92B5}"
 EndProject
@@ -9,6 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.VisualStudio.Jdt.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{386BAD62-57B8-4AEB-AEE5-D122A8330656}"
 	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		..\Directory.Packages.props = ..\Directory.Packages.props
 		stylecop.json = stylecop.json
 		version.json = version.json
 	EndProjectSection
@@ -30,5 +33,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F194D4D1-A28A-4C19-941E-BF828EA6DD8C}
 	EndGlobalSection
 EndGlobal

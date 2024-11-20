@@ -1,5 +1,5 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT License license. See LICENSE file in the project root for full license information.
 
 namespace Microsoft.VisualStudio.Jdt
 {
@@ -64,7 +64,7 @@ namespace Microsoft.VisualStudio.Jdt
 
         private bool RemoveWithAttributes(JObject source, JObject removeObject, JsonTransformationContextLogger logger)
         {
-            var attributes = this.attributeValidator.ValidateAndReturnAttributes(removeObject);
+            Dictionary<JdtAttributes, JToken> attributes = this.attributeValidator.ValidateAndReturnAttributes(removeObject);
 
             // The remove attribute only accepts objects if they have only the path attribute
             JToken pathToken;

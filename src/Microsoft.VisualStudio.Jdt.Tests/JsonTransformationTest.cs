@@ -1,5 +1,5 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT License license. See LICENSE file in the project root for full license information.
 
 namespace Microsoft.VisualStudio.Jdt.Tests
 {
@@ -261,11 +261,11 @@ namespace Microsoft.VisualStudio.Jdt.Tests
             string transformString = @"{ 
                                          '@jdt.invalid': false 
                                        }";
-            using (var transformStream = this.GetStreamFromString(transformString))
-            using (var sourceStream = this.GetStreamFromString(SimpleSourceString))
+            using (Stream transformStream = this.GetStreamFromString(transformString))
+            using (Stream sourceStream = this.GetStreamFromString(SimpleSourceString))
             {
                 JsonTransformation transform = new JsonTransformation(transformStream, this.logger);
-                var exception = Record.Exception(() => transform.Apply(sourceStream));
+                Exception exception = Record.Exception(() => transform.Apply(sourceStream));
                 Assert.NotNull(exception);
                 Assert.IsType<JdtException>(exception);
                 var jdtException = exception as JdtException;
@@ -302,7 +302,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         private static void LogHasSingleEntry(List<JsonTransformationTestLogger.TestLogEntry> log, string fileName, int lineNumber, int linePosition, bool fromException)
         {
             Assert.Single(log);
-            var errorEntry = log.Single();
+            JsonTransformationTestLogger.TestLogEntry errorEntry = log.Single();
             Assert.Equal(fileName, errorEntry.FileName);
             Assert.Equal(lineNumber, errorEntry.LineNumber);
             Assert.Equal(linePosition, errorEntry.LinePosition);
@@ -311,8 +311,8 @@ namespace Microsoft.VisualStudio.Jdt.Tests
 
         private void TryTransformTest(string sourceString, string transformString, bool shouldTransformSucceed)
         {
-            using (var transformStream = this.GetStreamFromString(transformString))
-            using (var sourceStream = this.GetStreamFromString(sourceString))
+            using (Stream transformStream = this.GetStreamFromString(transformString))
+            using (Stream sourceStream = this.GetStreamFromString(sourceString))
             {
                 JsonTransformation transform = new JsonTransformation(transformStream, this.logger);
 
@@ -324,7 +324,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         {
             Stream result = null;
 
-            var exception = Record.Exception(() => result = applyTransformMethod());
+            Exception exception = Record.Exception(() => result = applyTransformMethod());
 
             if (shouldTransformSucceed)
             {

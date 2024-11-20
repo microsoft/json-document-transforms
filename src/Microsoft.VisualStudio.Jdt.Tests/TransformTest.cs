@@ -1,5 +1,5 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT License license. See LICENSE file in the project root for full license information.
 
 namespace Microsoft.VisualStudio.Jdt.Tests
 {
@@ -16,7 +16,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
     public class TransformTest
     {
         // Directory for test inputs, that are JSON files
-        private static readonly string TestInputDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + "\\src\\Microsoft.VisualStudio.Jdt.Tests\\Inputs\\";
+        private static readonly string TestInputDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "\\src\\Microsoft.VisualStudio.Jdt.Tests\\Inputs\\";
 
         // Directory for Default transformation tests
         private static readonly string DefaultTestDirectory = TestInputDirectory + "Default\\";
