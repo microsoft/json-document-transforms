@@ -12,17 +12,17 @@ namespace Microsoft.VisualStudio.Jdt
     public enum ErrorLocation
     {
         /// <summary>
-        /// Represents no location set
+        /// Represents no location set.
         /// </summary>
         None,
 
         /// <summary>
-        /// Represents the source file
+        /// Represents the source file.
         /// </summary>
         Source,
 
         /// <summary>
-        /// Represents the transform file
+        /// Represents the transform file.
         /// </summary>
         Transform,
     }

@@ -14,17 +14,17 @@ namespace Microsoft.VisualStudio.Jdt
     internal enum JdtAttributes
     {
         /// <summary>
-        /// Represents an non existant attribute
+        /// Represents an non existant attribute.
         /// </summary>
         None = 0,
 
         /// <summary>
-        /// The JDT path attribute
+        /// The JDT path attribute.
         /// </summary>
         Path,
 
         /// <summary>
-        /// The JDT path attribute
+        /// The JDT path attribute.
         /// </summary>
         Value,
     }
