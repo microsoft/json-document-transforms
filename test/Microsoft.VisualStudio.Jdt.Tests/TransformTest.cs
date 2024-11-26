@@ -16,7 +16,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
     public class TransformTest
     {
         // Directory for test inputs, that are JSON files
-        private static readonly string TestInputDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "\\src\\Microsoft.VisualStudio.Jdt.Tests\\Inputs\\";
+        private static readonly string TestInputDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "\\test\\Microsoft.VisualStudio.Jdt.Tests\\Inputs\\";
 
         // Directory for Default transformation tests
         private static readonly string DefaultTestDirectory = TestInputDirectory + "Default\\";

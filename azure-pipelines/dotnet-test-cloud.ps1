@@ -46,7 +46,7 @@ if ($x86) {
   }
 }
 
-& $dotnet test "$RepoRoot\src"`
+& $dotnet test "$RepoRoot\test\Microsoft.VisualStudio.Jdt.Tests"`
   --no-build `
   -c $Configuration `
   --filter "TestCategory!=FailsInCloudTest" `

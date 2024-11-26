@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <AdditionalFiles Remove="..\..\stylecop.json" />
-    <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
+    <AdditionalFiles Include="..\..\src\stylecop.json" Link="stylecop.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Microsoft.VisualStudio.Jdt\Microsoft.VisualStudio.Jdt.csproj" />
+    <ProjectReference Include="..\..\src\Microsoft.VisualStudio.Jdt\Microsoft.VisualStudio.Jdt.csproj" />
   </ItemGroup>
 
   <ItemGroup>
