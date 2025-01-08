@@ -234,7 +234,7 @@ jobs:
           Is1ESPT: ${{ parameters.Is1ESPT }}
           RunTests: ${{ parameters.RunTests }}
       - ${{ if parameters.EnableDotNetFormatCheck }}:
-        - script: dotnet format --verify-no-changes --no-restore
+        - script: dotnet format --verify-no-changes --no-restore src
           displayName: 💅 Verify formatted code
 
   - ${{ if parameters.EnableMacOSBuild }}:

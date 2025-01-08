@@ -9,7 +9,7 @@ resources:
     ref: refs/tags/release
   pipelines:
   - pipeline: CI
-    source: Library # TODO: This should match the name of your CI pipeline
+    source: json-document-transforms-ci # TODO: This should match the name of your CI pipeline
     trigger:
       tags:
       - auto-release
@@ -58,7 +58,7 @@ extends:
         - task: GitHubRelease@1
           displayName: 📢 GitHub release (create)
           inputs:
-            gitHubConnection: # TODO: fill in service connection here
+            gitHubConnection: ttstanley # TODO: fill in service connection here
             repositoryName: $(Build.Repository.Name)
             target: $(resources.pipeline.CI.sourceCommit)
             tagSource: userSpecifiedTag
