@@ -42,7 +42,7 @@ jobs:
       run: azure-pipelines/variables/_pipelines.ps1
       shell: pwsh
     - name: 🛠 build
-      run: dotnet build src -t:build,pack --no-restore -c $(BuildConfiguration) /bl:"$(Build.ArtifactStagingDirectory)/build_logs/build.binlog"
+      run: dotnet build src -t:build,pack --no-restore -c ${{ env.BUILDCONFIGURATION }} /bl:"${{ runner.temp }}/_artifacts/build_logs/build.binlog"
     - name: 🧪 test
       run: azure-pipelines/dotnet-test-cloud.ps1 -Configuration ${{ env.BUILDCONFIGURATION }} -Agent ${{ runner.os }}
       shell: pwsh
