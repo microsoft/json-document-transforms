@@ -1,5 +1,5 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 namespace Microsoft.VisualStudio.Jdt
 {
@@ -58,7 +58,7 @@ namespace Microsoft.VisualStudio.Jdt
                 LineInfoHandling = JdtUtilities.GetLineInfoHandling(),
             };
 
-            using (var objectReader = objectToClone.CreateReader())
+            using (Newtonsoft.Json.JsonReader objectReader = objectToClone.CreateReader())
             {
                 return JObject.Load(objectReader, loadSettings);
             }

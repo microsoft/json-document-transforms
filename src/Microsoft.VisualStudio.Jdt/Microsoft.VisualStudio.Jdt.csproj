@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputTypeEx>library</OutputTypeEx>
-    <TargetFrameworks>netstandard1.5;net472</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net472</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -13,20 +13,24 @@
      <PackageTags>json transformation transforms file-transform jdt</PackageTags>
      <PackageIconUrl>https://aka.ms/VsExtensibilityIcon</PackageIconUrl>
      <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-     <PackageLicenseUrl>https://raw.githubusercontent.com/Microsoft/json-document-transforms/master/LICENSE</PackageLicenseUrl>
      <PackageProjectUrl>https://github.com/Microsoft/json-document-transforms</PackageProjectUrl>
      <RepositoryUrl>https://github.com/Microsoft/json-document-transforms</RepositoryUrl>
      <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="Microsoft.VisualStudio.Internal.MicroBuild.VisualStudio" Version="2.0.66" PrivateAssets="all" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <AdditionalFiles Remove="..\..\stylecop.json" />
+    <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.5'">
-    <PackageReference Include="System.Diagnostics.FileVersionInfo" Version="4.3.0" />
-    <PackageReference Include="System.Runtime.Serialization.Formatters" Version="4.3.0" />
+  <ItemGroup>
+	<PackageReference Update="Microsoft.VisualStudio.Internal.MicroBuild.VisualStudio" Version="2.0.66" PrivateAssets="all" />
+    <PackageReference Include="Newtonsoft.Json" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Diagnostics.FileVersionInfo" />
+    <PackageReference Include="System.Runtime.Serialization.Formatters" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,11 +46,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Update="Nerdbank.GitVersioning" Version="3.6.133" />
-    <PackageReference Update="StyleCop.Analyzers" Version="1.1.118" />
   </ItemGroup>
 
 </Project>

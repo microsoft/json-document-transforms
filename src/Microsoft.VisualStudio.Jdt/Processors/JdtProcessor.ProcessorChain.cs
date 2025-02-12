@@ -1,5 +1,5 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 namespace Microsoft.VisualStudio.Jdt
 {
@@ -37,9 +37,9 @@ namespace Microsoft.VisualStudio.Jdt
 
                 // The successor of each transform processor should be the next one on the list
                 // The last processor defaults to the end of chain processor
-                var processorsEnumerator = this.processors.GetEnumerator();
+                List<JdtProcessor>.Enumerator processorsEnumerator = this.processors.GetEnumerator();
                 processorsEnumerator.MoveNext();
-                foreach (var successor in this.processors.Skip(1))
+                foreach (JdtProcessor? successor in this.processors.Skip(1))
                 {
                     if (!string.IsNullOrEmpty(successor.Verb))
                     {

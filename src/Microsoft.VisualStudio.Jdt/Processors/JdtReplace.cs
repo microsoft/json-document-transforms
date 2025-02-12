@@ -1,5 +1,5 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 namespace Microsoft.VisualStudio.Jdt
 {
@@ -50,7 +50,7 @@ namespace Microsoft.VisualStudio.Jdt
 
         private bool ReplaceWithProperties(JObject source, JObject replaceObject, JsonTransformationContextLogger logger)
         {
-            var attributes = this.attributeValidator.ValidateAndReturnAttributes(replaceObject);
+            Dictionary<JdtAttributes, JToken> attributes = this.attributeValidator.ValidateAndReturnAttributes(replaceObject);
 
             // If there are attributes, handle them accordingly
             if (attributes.Any())

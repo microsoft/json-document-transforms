@@ -1,5 +1,5 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 namespace Microsoft.VisualStudio.Jdt
 {
@@ -14,17 +14,17 @@ namespace Microsoft.VisualStudio.Jdt
     internal enum JdtAttributes
     {
         /// <summary>
-        /// Represents an non existant attribute
+        /// Represents an non existant attribute.
         /// </summary>
         None = 0,
 
         /// <summary>
-        /// The JDT path attribute
+        /// The JDT path attribute.
         /// </summary>
         Path,
 
         /// <summary>
-        /// The JDT path attribute
+        /// The JDT path attribute.
         /// </summary>
         Value,
     }
