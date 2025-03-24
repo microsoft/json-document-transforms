@@ -54,7 +54,7 @@ jobs:
       run: tools/variables/_define.ps1
       shell: pwsh
     - name: 📥 Collect artifacts
-      run: azure-pipelines/artifacts/_stage_all.ps1
+      run: tools/artifacts/_stage_all.ps1
       shell: pwsh
       if: always()
     - name: 📢 Upload project.assets.json files
