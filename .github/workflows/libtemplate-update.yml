@@ -1,4 +1,4 @@
-name: Library.Template update
+name: ⛜ Library.Template update
 
 # PREREQUISITE: This workflow requires the repo to be configured to allow workflows to create pull requests.
 # Visit https://github.com/USER/REPO/settings/actions
@@ -17,7 +17,7 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       with:
         fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
 
@@ -25,7 +25,7 @@ jobs:
       id: merge
       shell: pwsh
       run: |
-        $LibTemplateBranch = & ./azure-pipelines/Get-LibTemplateBasis.ps1 -ErrorIfNotRelated
+        $LibTemplateBranch = & ./tools/Get-LibTemplateBasis.ps1 -ErrorIfNotRelated
         if ($LASTEXITCODE -ne 0) {
           exit $LASTEXITCODE
         }
@@ -45,7 +45,7 @@ jobs:
 
         # Pushing commits that add or change files under .github/workflows will cause our workflow to fail.
         # But it usually isn't necessary because the target branch already has (or doesn't have) these changes.
-        # So if the merged doesn't bring in any changes to these files, try the merge locally and push that
+        # So if the merge doesn't bring in any changes to these files, try the merge locally and push that
         # to keep github happy.
         if ((git rev-list FETCH_HEAD ^HEAD --count -- .github/workflows) -eq 0) {
           # Indeed there are no changes in that area. So merge locally to try to appease GitHub.
@@ -77,7 +77,7 @@ jobs:
         $prTitle = "Merge latest Library.Template"
         $prBody = "This merges the latest features and fixes from [Library.Template's  branch](https://github.com/AArnott/Library.Template/tree/).
 
-        ⚠️ Do **not** squash this pull request when completing it. You must *merge* it."
+        ⚠️ Do **not** squash this pull request when completing it. You must *merge* it.
 
         <details>
         <summary>Merge conflicts?</summary>
@@ -91,7 +91,7 @@ jobs:
         git commit
         git push
         ```
-        </details>
+        </details>"
 
         gh pr create -H auto/libtemplateUpdate -b $prBody -t $prTitle
       env:
