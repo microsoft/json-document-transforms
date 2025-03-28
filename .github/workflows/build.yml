@@ -39,22 +39,22 @@ jobs:
         }
       shell: pwsh
     - name: ⚙️ Set pipeline variables based on source
-      run: azure-pipelines/variables/_pipelines.ps1
+      run: tools/variables/_define.ps1
       shell: pwsh
     - name: 🛠 build
       run: dotnet build src -t:build,pack --no-restore -c ${{ env.BUILDCONFIGURATION }} /bl:"${{ runner.temp }}/_artifacts/build_logs/build.binlog"
     - name: 🧪 test
-      run: azure-pipelines/dotnet-test-cloud.ps1 -Configuration ${{ env.BUILDCONFIGURATION }} -Agent ${{ runner.os }}
+      run: tools/dotnet-test-cloud.ps1 -Configuration ${{ env.BUILDCONFIGURATION }} -Agent ${{ runner.os }}
       shell: pwsh
     - name: 💅🏻 Verify formatted code
       run: dotnet format --verify-no-changes --no-restore
       shell: pwsh
       if: runner.os == 'Linux'
     - name: ⚙ Update pipeline variables based on build outputs
-      run: azure-pipelines/variables/_pipelines.ps1
+      run: tools/variables/_define.ps1
       shell: pwsh
     - name: 📥 Collect artifacts
-      run: azure-pipelines/artifacts/_stage_all.ps1
+      run: tools/artifacts/_stage_all.ps1
       shell: pwsh
       if: always()
     - name: 📢 Upload project.assets.json files
