@@ -24,7 +24,7 @@ namespace Microsoft.VisualStudio.Jdt
             {
                 throw new ArgumentNullException(nameof(objectToSearch));
             }
-
+            // Test
             return objectToSearch.Properties().Where(p => JdtUtilities.IsJdtSyntax(p.Name));
         }
 
