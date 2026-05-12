@@ -87,7 +87,7 @@ if ($isMTP) {
     $trxFiles = Get-ChildItem -Recurse -Path $testLogs\*.trx
 } else {
     $testDiagLog = Join-Path $ArtifactStagingFolder (Join-Path test_logs diag.log)
-    & $dotnet test $RepoRoot `
+    & $dotnet test "$RepoRoot\test\Microsoft.VisualStudio.Jdt.Tests"`
         --no-build `
         -c $Configuration `
         --filter "TestCategory!=FailsInCloudTest" `
