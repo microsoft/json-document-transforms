@@ -1,7 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>    
+  <PropertyGroup>
     <TargetFrameworks>net472;net8.0</TargetFrameworks>
+    <OutputType>Exe</OutputType>
+    <RootNamespace />
     <IsPackable>false</IsPackable>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
   </PropertyGroup>
@@ -12,13 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="Newtonsoft.Json" />
-    <PackageReference Include="xunit" />
-    <PackageReference Include="xunit.runner.visualstudio" >
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="TUnit.Engine" />
+    <PackageReference Include="xunit.v3.assert.aot" Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)','net9.0'))" />
+    <PackageReference Include="xunit.v3.assert" Condition="!$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)','net9.0'))" />
   </ItemGroup>
 
   <ItemGroup>
