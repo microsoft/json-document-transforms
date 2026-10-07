@@ -8,6 +8,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
     using Microsoft.VisualStudio.Jdt;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
+    using TUnit.Core;
     using Xunit;
 
     /// <summary>
@@ -94,8 +95,8 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         /// </summary>
         /// <param name="testFileName">Name of the test being performed.
         /// Corresponds to a group of files in the input folder.</param>
-        [Theory]
-        [MemberData(nameof(GetDefaultInputs))]
+        [Test]
+        [MethodDataSource(nameof(GetDefaultInputs))]
         public void Default(string testFileName)
         {
             BaseTransformTest(DefaultTestDirectory, testFileName);
@@ -106,8 +107,8 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         /// </summary>
         /// <param name="testFileName">Name of the test being performed.
         /// Corresponds to a group of files in the input folder.</param>
-        [Theory]
-        [MemberData(nameof(GetRemoveInputs))]
+        [Test]
+        [MethodDataSource(nameof(GetRemoveInputs))]
         public void Remove(string testFileName)
         {
             BaseTransformTest(RemoveTestDirectory, testFileName);
@@ -118,8 +119,8 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         /// </summary>
         /// <param name="testFileName">Name of the test being performed.
         /// Corresponds to a group of files in the input folder.</param>
-        [Theory]
-        [MemberData(nameof(GetRenameInputs))]
+        [Test]
+        [MethodDataSource(nameof(GetRenameInputs))]
         public void Rename(string testFileName)
         {
             BaseTransformTest(RenameTestDirectory, testFileName);
@@ -130,8 +131,8 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         /// </summary>
         /// <param name="testFileName">Name of the test being performed.
         /// Corresponds to a group of files in the input folder.</param>
-        [Theory]
-        [MemberData(nameof(GetReplaceInputs))]
+        [Test]
+        [MethodDataSource(nameof(GetReplaceInputs))]
         public void Replace(string testFileName)
         {
             BaseTransformTest(ReplaceTestDirectory, testFileName);
@@ -142,8 +143,8 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         /// </summary>
         /// <param name="testFileName">Name of the test being performed.
         /// Corresponds to a group of files in the input folder.</param>
-        [Theory]
-        [MemberData(nameof(GetMergeInputs))]
+        [Test]
+        [MethodDataSource(nameof(GetMergeInputs))]
         public void Merge(string testFileName)
         {
             BaseTransformTest(MergeTestDirectory, testFileName);

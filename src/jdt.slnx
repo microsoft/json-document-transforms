@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="../Directory.Packages.props" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Build.targets" />
+    <File Path="stylecop.json" />
+    <File Path="version.json" />
+  </Folder>
+  <Project Path="../test/AotCompatibilityTest/AotCompatibilityTest.csproj" />
+  <Project Path="../test/Microsoft.VisualStudio.Jdt.Tests/Microsoft.VisualStudio.Jdt.Tests.csproj" />
+  <Project Path="Microsoft.VisualStudio.Jdt/Microsoft.VisualStudio.Jdt.csproj" />
+</Solution>
