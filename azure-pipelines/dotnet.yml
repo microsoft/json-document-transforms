@@ -8,7 +8,7 @@ parameters:
 
 steps:
 
-- script: dotnet build src -t:build,pack --no-restore -c $(BuildConfiguration) /bl:"$(Build.ArtifactStagingDirectory)/build_logs/build.binlog"
+- script: dotnet build tools/dirs.proj -t:build,pack --no-restore -c $(BuildConfiguration) /bl:"$(Build.ArtifactStagingDirectory)/build_logs/build.binlog"
   displayName: 🛠 dotnet build
   ${{ if parameters.BuildRequiresAccessToken }}:
     env:

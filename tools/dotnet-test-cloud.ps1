@@ -13,14 +13,17 @@
     A switch to run the tests in an x86 process.
 .PARAMETER dotnet32
     The path to a 32-bit dotnet executable to use.
+.PARAMETER NoCoverage
+    A switch to skip code coverage collection.
 #>
 [CmdletBinding()]
 Param(
-  [string]$Configuration = 'Debug',
-  [string]$Agent = 'Local',
-  [switch]$PublishResults,
-  [switch]$x86,
-  [string]$dotnet32
+    [string]$Configuration='Debug',
+    [string]$Agent='Local',
+    [switch]$PublishResults,
+    [switch]$x86,
+    [string]$dotnet32,
+    [switch]$NoCoverage
 )
 
 $RepoRoot = (Resolve-Path "$PSScriptRoot/..").Path
@@ -32,23 +35,24 @@ if ($x86) {
   $x86RunTitleSuffix = ", x86"
   if ($dotnet32) {
     $dotnet = $dotnet32
-  }
-  else {
+  } else {
     $dotnet32Possibilities = "$PSScriptRoot\../obj/tools/x86/.dotnet/dotnet.exe", "$env:AGENT_TOOLSDIRECTORY/x86/dotnet/dotnet.exe", "${env:ProgramFiles(x86)}\dotnet\dotnet.exe"
-    $dotnet32Matches = $dotnet32Possibilities | ? { Test-Path $_ }
+    $dotnet32Matches = $dotnet32Possibilities |? { Test-Path $_ }
     if ($dotnet32Matches) {
       $dotnet = Resolve-Path @($dotnet32Matches)[0]
       Write-Host "Running tests using `"$dotnet`"" -ForegroundColor DarkGray
-    }
-    else {
+    } else {
       Write-Error "Unable to find 32-bit dotnet.exe"
-      return 1
+      exit 1
     }
   }
 }
 
 $testBinLog = Join-Path $ArtifactStagingFolder (Join-Path build_logs test.binlog)
 $testLogs = Join-Path $ArtifactStagingFolder test_logs
+if (Test-Path -LiteralPath $testLogs) {
+    Remove-Item -LiteralPath $testLogs -Recurse -Force
+}
 
 $globalJson = Get-Content $PSScriptRoot/../global.json | ConvertFrom-Json
 $isMTP = $globalJson.test.runner -eq 'Microsoft.Testing.Platform'
@@ -60,12 +64,14 @@ if ($isMTP) {
 
     $dumpSwitches = @(
         ,'--hangdump'
-        ,'--hangdump-timeout','120s'
+        ,'--hangdump-timeout','5m'
         ,'--crashdump'
+        ,'--crashdump-type','Heap'
+        # The native crash report accompanies the dump and is often the only way to identify the
+        # faulting thread and instruction when a test host dies of an access violation on Linux.
+        ,'--crash-report-if-supported'
     )
     $mtpArgs = @(
-        ,'--coverage'
-        ,'--coverage-output-format','cobertura'
         ,'--diagnostic'
         ,'--diagnostic-output-directory',$testLogs
         ,'--diagnostic-verbosity','Information'
@@ -73,12 +79,19 @@ if ($isMTP) {
         ,'--report-trx'
     )
 
-    & $dotnet test "$RepoRoot\test\Microsoft.VisualStudio.Jdt.Tests"`
+    if (-not $NoCoverage) {
+        $mtpArgs += @(
+            ,'--coverage'
+            ,'--coverage-output-format','cobertura'
+            ,'--coverage-settings',"$PSScriptRoot/test.runsettings"
+        )
+    }
+
+    & $dotnet test "$RepoRoot\test\Microsoft.VisualStudio.Jdt.Tests" `
         --no-build `
         -c $Configuration `
         -bl:"$testBinLog" `
-        --filter-not-trait 'TestCategory=FailsInCloudTest' `
-        --coverage-settings "$PSScriptRoot/test.runsettings" `
+        -- `
         @mtpArgs `
         @dumpSwitches `
         @extraArgs
@@ -87,17 +100,24 @@ if ($isMTP) {
     $trxFiles = Get-ChildItem -Recurse -Path $testLogs\*.trx
 } else {
     $testDiagLog = Join-Path $ArtifactStagingFolder (Join-Path test_logs diag.log)
-    & $dotnet test "$RepoRoot\test\Microsoft.VisualStudio.Jdt.Tests"`
+    $coverageArgs = @()
+    if (-not $NoCoverage) {
+        $coverageArgs = @(
+            ,'--collect','Code Coverage;Format=cobertura'
+            ,'--settings',"$PSScriptRoot/test.runsettings"
+        )
+    }
+
+    & $dotnet test "$RepoRoot\test\Microsoft.VisualStudio.Jdt.Tests" `
         --no-build `
         -c $Configuration `
         --filter "TestCategory!=FailsInCloudTest" `
-        --collect "Code Coverage;Format=cobertura" `
-        --settings "$PSScriptRoot/test.runsettings" `
         --blame-hang-timeout 60s `
         --blame-crash `
         -bl:"$testBinLog" `
         --diag "$testDiagLog;TraceLevel=info" `
         --logger trx `
+        @coverageArgs `
         @extraArgs
     if ($LASTEXITCODE -ne 0) { $failedTests += 1 }
 
@@ -115,12 +135,11 @@ $trxFiles |% {
     $x = [xml](Get-Content -LiteralPath $_)
     $runTitle = $null
     if ($x.TestRun.TestDefinitions -and $x.TestRun.TestDefinitions.GetElementsByTagName('UnitTest')) {
-      $storage = $x.TestRun.TestDefinitions.GetElementsByTagName('UnitTest')[0].storage -replace '\\', '/'
+      $storage = $x.TestRun.TestDefinitions.GetElementsByTagName('UnitTest')[0].storage -replace '\\','/'
       if ($storage -match '/(?<tfm>net[^/]+)/(?:(?<rid>[^/]+)/)?(?<lib>[^/]+)\.(dll|exe)$') {
         if ($matches.rid) {
           $runTitle = "$($matches.lib) ($($matches.tfm), $($matches.rid), $Agent)"
-        }
-        else {
+        } else {
           $runTitle = "$($matches.lib) ($($matches.tfm)$x86RunTitleSuffix, $Agent)"
         }
       }
