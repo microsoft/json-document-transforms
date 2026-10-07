@@ -8,21 +8,13 @@ parameters:
 
 steps:
 
-- ${{ if parameters.RunTests }}:
-  - script: dotnet build tools/dirs.proj -t:build,pack,publish --no-restore -c $(BuildConfiguration) /bl:"$(Build.ArtifactStagingDirectory)/build_logs/build.binlog"
-    displayName: 🛠 dotnet build
-    ${{ if parameters.BuildRequiresAccessToken }}:
-      env:
-        SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+- script: dotnet build tools/dirs.proj -t:build,pack --no-restore -c $(BuildConfiguration) /bl:"$(Build.ArtifactStagingDirectory)/build_logs/build.binlog"
+  displayName: 🛠 dotnet build
+  ${{ if parameters.BuildRequiresAccessToken }}:
+    env:
+      SYSTEM_ACCESSTOKEN: $(System.AccessToken)
 
-- ${{ if not(parameters.RunTests) }}:
-  - script: dotnet build tools/dirs.proj -t:build,pack --no-restore -c $(BuildConfiguration) /bl:"$(Build.ArtifactStagingDirectory)/build_logs/build.binlog"
-    displayName: 🛠 dotnet build
-    ${{ if parameters.BuildRequiresAccessToken }}:
-      env:
-        SYSTEM_ACCESSTOKEN: $(System.AccessToken)
-
-- powershell: tools/dotnet-test-cloud.ps1 -Configuration $(BuildConfiguration) -Agent $(Agent.JobName) -PublishResults -IncludeNativeAOT
+- powershell: tools/dotnet-test-cloud.ps1 -Configuration $(BuildConfiguration) -Agent $(Agent.JobName) -PublishResults
   displayName: 🧪 dotnet test
   condition: and(succeeded(), ${{ parameters.RunTests }})
 

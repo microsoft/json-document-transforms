@@ -26,7 +26,6 @@
     <PackageVersion Include="Microsoft.VisualStudio.Internal.MicroBuild.NonShipping" Version="$(MicroBuildVersion)" />
     <PackageVersion Include="TUnit.Engine" Version="1.65.68" />
     <PackageVersion Include="xunit.v3.assert" Version="4.0.1" />
-    <PackageVersion Include="xunit.v3.assert.aot" Version="4.0.1" />
   </ItemGroup>
   <ItemGroup>
     <!-- Put repo-specific GlobalPackageReference items in this group. -->
