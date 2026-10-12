@@ -7,6 +7,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using TUnit.Core;
     using Xunit;
 
     /// <summary>
@@ -23,14 +24,14 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         /// </summary>
         public JsonTransformationTest()
         {
-            // xUnit creates a new instance of the class for each test, so a new logger is created
+            // TUnit creates a new instance of the class for each test, so a new logger is created
             this.logger = new JsonTransformationTestLogger();
         }
 
         /// <summary>
         /// Tests the error caused when an invalid verb is found.
         /// </summary>
-        [Fact]
+        [Test]
         public void InvalidVerb()
         {
             string transformString = @"{ 
@@ -49,7 +50,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         /// <summary>
         /// Tests the error caused by a verb having an invalid value.
         /// </summary>
-        [Fact]
+        [Test]
         public void InvalidVerbValue()
         {
             string transformString = @"{ 
@@ -68,7 +69,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         /// <summary>
         /// Tests the error caused when an invalid attribute is found within a verb.
         /// </summary>
-        [Fact]
+        [Test]
         public void InvalidAttribute()
         {
             string transformString = @"{ 
@@ -89,7 +90,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         /// <summary>
         /// Tests the error caused when a required attribute is not found.
         /// </summary>
-        [Fact]
+        [Test]
         public void MissingAttribute()
         {
             string transformString = @"{ 
@@ -110,7 +111,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         /// <summary>
         /// Tests the error caused when a verb object contains attributes and other objects.
         /// </summary>
-        [Fact]
+        [Test]
         public void MixedAttributes()
         {
             string transformString = @"{ 
@@ -133,7 +134,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         /// <summary>
         /// Tests the error caused when an attribute has an incorrect value.
         /// </summary>
-        [Fact]
+        [Test]
         public void WrongAttributeValue()
         {
             string transformString = @"{
@@ -154,7 +155,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         /// <summary>
         /// Tests the error caused when a path attribute returns no result.
         /// </summary>
-        [Fact]
+        [Test]
         public void RemoveNonExistantNode()
         {
             string transformString = @"{
@@ -175,7 +176,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         /// <summary>
         /// Tests the error caused when attempting to remove the root node.
         /// </summary>
-        [Fact]
+        [Test]
         public void RemoveRoot()
         {
             string transformString = @"{
@@ -194,7 +195,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         /// <summary>
         /// Tests the error when a rename value is invalid.
         /// </summary>
-        [Fact]
+        [Test]
         public void InvalidRenameValue()
         {
             string transformString = @"{
@@ -215,7 +216,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         /// <summary>
         /// Tests the error caused when attempting to rename a non-existant node.
         /// </summary>
-        [Fact]
+        [Test]
         public void RenameNonExistantNode()
         {
             string transformString = @"{
@@ -236,7 +237,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         /// <summary>
         /// Test the error when attempting to replace the root with a non-object token.
         /// </summary>
-        [Fact]
+        [Test]
         public void ReplaceRoot()
         {
             string transformString = @"{
@@ -255,7 +256,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         /// <summary>
         /// Tests that an exception is thrown when <see cref="JsonTransformation.Apply(Stream)"/> is called.
         /// </summary>
-        [Fact]
+        [Test]
         public void ThrowAndLogException()
         {
             string transformString = @"{ 
@@ -265,7 +266,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
             using (Stream sourceStream = this.GetStreamFromString(SimpleSourceString))
             {
                 JsonTransformation transform = new JsonTransformation(transformStream, this.logger);
-                Exception exception = Record.Exception(() => transform.Apply(sourceStream));
+                Exception exception = CaptureException(() => transform.Apply(sourceStream));
                 Assert.NotNull(exception);
                 Assert.IsType<JdtException>(exception);
                 var jdtException = exception as JdtException;
@@ -279,7 +280,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         /// <summary>
         /// Tests that a transformation succeeds even if the source and transform files are read-only.
         /// </summary>
-        [Fact]
+        [Test]
         public void ReadOnly()
         {
             const string TransformSourceString = @"{
@@ -324,7 +325,7 @@ namespace Microsoft.VisualStudio.Jdt.Tests
         {
             Stream result = null;
 
-            Exception exception = Record.Exception(() => result = applyTransformMethod());
+            Exception exception = CaptureException(() => result = applyTransformMethod());
 
             if (shouldTransformSucceed)
             {
@@ -336,6 +337,19 @@ namespace Microsoft.VisualStudio.Jdt.Tests
                 Assert.Null(result);
                 Assert.NotNull(exception);
                 Assert.IsType<JdtException>(exception);
+            }
+        }
+
+        private static Exception CaptureException(Action action)
+        {
+            try
+            {
+                action();
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return ex;
             }
         }
 
