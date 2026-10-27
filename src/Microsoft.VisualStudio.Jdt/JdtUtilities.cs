@@ -25,7 +25,7 @@ namespace Microsoft.VisualStudio.Jdt
         private static LineInfoHandling? lineInfoHandling = null;
 
         /// <summary>
-        /// Wheter the given key corresponds to a JDT verb.
+        /// Wheter the given key corresponds to a JDT verb. testgg
         /// </summary>
         /// <param name="key">The JSON key to analyze.</param>
         /// <returns>True if the key corresponds to a verb.</returns>
