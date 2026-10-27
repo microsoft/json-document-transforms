@@ -32,7 +32,7 @@
     <PackageReference Include="System.Diagnostics.FileVersionInfo" />
     <PackageReference Include="System.Runtime.Serialization.Formatters" />
   </ItemGroup>
-
+dfssd
   <ItemGroup>
     <Compile Update="Resources.Designer.cs">
       <DesignTime>True</DesignTime>
