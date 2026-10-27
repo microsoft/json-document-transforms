@@ -28,8 +28,8 @@ namespace Microsoft.VisualStudio.Jdt
             return objectToSearch.Properties().Where(p => JdtUtilities.IsJdtSyntax(p.Name));
         }
 
-        /// <summary>
-        /// Checks if an exception is critical.
+        /// <summary>ds
+        /// Checks if an exception is critical.dfasdfsda
         /// </summary>
         /// <param name="ex">The exception to check.</param>
         /// <returns>True if the exception is critical and should not be caught.</returns>
