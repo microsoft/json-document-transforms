@@ -28,7 +28,7 @@ namespace Microsoft.VisualStudio.Jdt
     }
 
     /// <summary>
-    /// Exception thrown on JDT error.
+    /// Exception thrown on JDT error.fasdfasdf
     /// </summary>
     [Serializable]
     public class JdtException : Exception
