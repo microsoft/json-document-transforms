@@ -14,7 +14,7 @@ namespace Microsoft.VisualStudio.Jdt
     internal static class JdtExtensions
     {
         /// <summary>
-        /// Gets all the properties within the object that correspond to JDT syntax.
+        /// Gets all the properties within the object that correspond to JDT syntax. asdff asfsdfs
         /// </summary>
         /// <param name="objectToSearch">The object to search.</param>
         /// <returns>An enumerable of properties that start with the JDT prefix.</returns>
