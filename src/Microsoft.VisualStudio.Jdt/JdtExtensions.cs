@@ -29,7 +29,7 @@ namespace Microsoft.VisualStudio.Jdt
         }
 
         /// <summary>
-        /// Checks if an exception is critical.
+        /// Checks if an exception is critical. T4evindvsnaflasd
         /// </summary>
         /// <param name="ex">The exception to check.</param>
         /// <returns>True if the exception is critical and should not be caught.</returns>
