@@ -28,7 +28,7 @@ namespace Microsoft.VisualStudio.Jdt
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonTransformation"/> class with an external logger.
+        /// Initializes a new instance of the <see cref="JsonTransformation"/> class with an external logger. fasdfasdhjlkfjsd
         /// </summary>
         /// <param name="transformFile">The path to the file that specifies the transformation.</param>
         /// <param name="logger">The external logger.</param>
