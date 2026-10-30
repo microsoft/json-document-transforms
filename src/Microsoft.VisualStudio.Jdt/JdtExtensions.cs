@@ -17,7 +17,7 @@ namespace Microsoft.VisualStudio.Jdt
         /// Gets all the properties within the object that correspond to JDT syntax.
         /// </summary>
         /// <param name="objectToSearch">The object to search.</param>
-        /// <returns>An enumerable of properties that start with the JDT prefix.</returns>
+        /// <returns>An enumerable of properties that start with the JDT prefix.</returns> adsfasdfasd
         internal static IEnumerable<JProperty> GetJdtProperties(this JObject objectToSearch)
         {
             if (objectToSearch == null)
