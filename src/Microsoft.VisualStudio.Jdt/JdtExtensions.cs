@@ -30,7 +30,7 @@ namespace Microsoft.VisualStudio.Jdt
 
         /// <summary>
         /// Checks if an exception is critical.
-        /// </summary>
+        /// </summary> testessd
         /// <param name="ex">The exception to check.</param>
         /// <returns>True if the exception is critical and should not be caught.</returns>
         internal static bool IsCriticalException(this Exception ex)
