@@ -6,7 +6,7 @@
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
     <MicrosoftTestingPlatformVersion>2.5.2</MicrosoftTestingPlatformVersion>
 
-    <MicroBuildVersion>2.0.257</MicroBuildVersion>
+    <MicroBuildVersion>2.0.272</MicroBuildVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
@@ -26,6 +26,7 @@
     <PackageVersion Include="Microsoft.VisualStudio.Internal.MicroBuild.NonShipping" Version="$(MicroBuildVersion)" />
     <PackageVersion Include="TUnit.Engine" Version="1.78.0" />
     <PackageVersion Include="xunit.v3.assert" Version="4.0.2" />
+    <PackageVersion Include="xunit.v3.assert.aot" Version="4.0.2" />
   </ItemGroup>
   <ItemGroup>
     <!-- Put repo-specific GlobalPackageReference items in this group. -->
