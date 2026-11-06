@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
   <PropertyGroup>
-    <UseAppHost Condition="'$(RuntimeIdentifier)' == ''">false</UseAppHost>
+    <UseAppHost Condition="'$(RuntimeIdentifier)' == '' and '$(NativeAOT)' != 'true'">false</UseAppHost>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(IsTestProject)' != 'false'">
@@ -9,9 +9,6 @@
     <PackageReference Include="Microsoft.Testing.Extensions.CrashDump" />
     <PackageReference Include="Microsoft.Testing.Extensions.HangDump" />
     <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" Condition="Exists('xunit.runner.json')" />
   </ItemGroup>
   <Import Project="$([MSBuild]::GetPathOfFileAbove($(MSBuildThisFile), $(MSBuildThisFileDirectory)..))" />
 </Project>
